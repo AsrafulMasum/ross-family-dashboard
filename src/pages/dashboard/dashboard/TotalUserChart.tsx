@@ -18,7 +18,7 @@ const TotalUserChart = () => {
 
   return (
     <div>
-      <Card className="mb-6 rounded-lg shadow-sm border border-gray-200">
+      <Card className="mb-4 rounded-lg shadow-sm border border-gray-200">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold">Total Users</h2>
           <Select
@@ -32,7 +32,7 @@ const TotalUserChart = () => {
           </Select>
         </div>
 
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={240}>
           <BarChart data={earningsData}>
             <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
             <XAxis

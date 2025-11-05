@@ -18,9 +18,9 @@ const TotalEarning = () => {
 
   return (
     <div>
-      <Card className="mb-6 rounded-lg shadow-sm border border-gray-200">
+      <Card className="rounded-lg shadow-sm border border-gray-200">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold">Total Earnings</h2>
+          <h2 className="text-lg font-semibold">Total Revenue</h2>
           <Select
             value={selectedYear}
             onChange={setSelectedYear}
@@ -32,7 +32,7 @@ const TotalEarning = () => {
           </Select>
         </div>
 
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={250}>
           <AreaChart data={earningsData}>
             <defs>
               <linearGradient id="colorEarnings" x1="0" y1="0" x2="0" y2="1">
