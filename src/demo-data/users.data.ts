@@ -98,4 +98,8 @@ export  interface User {
   contactNumber: string;
   subscription: string;
   status?:"active"|"delete"
+  city?: string;
+  state?: string;
+  zipCode?: string;
+  country?: string;
 }

@@ -11,15 +11,12 @@ import TermsAndCondition from '../pages/dashboard/terms-and-condition';
 import Profile from '../pages/dashboard/profile';
 import Notification from '../pages/dashboard/notification';
 import Packages from '../pages/dashboard/package';
-import StudyNotes from '../pages/dashboard/study-notes';
-import PatientAssessment from '../pages/dashboard/patient-assessment';
-import ClinicalSkills from '../pages/dashboard/clinical-skills';
 import PrivacyPolicy from '../pages/dashboard/privacy-policy';
-import BodySystem from '../pages/dashboard/body-system';
-import ExamsPage from '../pages/dashboard/exams';
-import TemplatesPage from '../pages/dashboard/templates';
-import FlashcardsPage from '../pages/dashboard/flashcards';
 import FAQPage from '../pages/dashboard/faq';
+import Orders from '../pages/dashboard/orders';
+import WaitingList from '../pages/dashboard/waiting-list';
+import Drivers from '../pages/dashboard/drivers';
+import Chefs from '../pages/dashboard/chefs';
 
 const router = createBrowserRouter([
     {
@@ -28,15 +25,12 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
             { path: '', element: <Dashboard /> },
+            { path: 'orders', element: <Orders /> },
+            { path: 'waiting-list', element: <WaitingList /> },
+            { path: "chefs", element: <Chefs /> },
             { path: "users", element: <Users /> },
+            { path: "drivers", element: <Drivers /> },
             { path: "package", element: <Packages /> },
-            { path: "study-notes", element: <StudyNotes /> },
-            { path: "body-system", element: <BodySystem /> },
-            { path: "patient-assessment", element: <PatientAssessment /> },
-            { path: "clinical-skills", element: <ClinicalSkills /> }, 
-            { path: "templates", element: <TemplatesPage /> }, 
-            { path: "exams", element: <ExamsPage /> }, 
-            { path: "flashcards", element: <FlashcardsPage /> }, 
             { path: 'profile', element: <Profile /> },
             { path: 'notification', element: <Notification /> },
             { path: "privacy-policy", element: <PrivacyPolicy /> },

@@ -1,11 +1,11 @@
 import { Button, ConfigProvider, Input, Select, Table } from 'antd';
 import { useState } from 'react';
-import UserModal from './UserModal';
-import BlockModal from './BlockModal';
 import HeaderTitle from '../../../components/shared/HeaderTitle';
 import { CiCircleInfo, CiLock, CiUnlock } from 'react-icons/ci';
 import { MdOutlineDeleteOutline } from 'react-icons/md';
-import { User } from '../../../types/types';
+import UserModal from '../users/UserModal';
+import BlockModal from '../users/BlockModal';
+import { DriverTypes } from '../../../types/types';
 
 const { Option } = Select;
 
@@ -41,126 +41,136 @@ const canadianCities = [
     'Austin', // From your original data
 ];
 
-const userData: User[] = [
-  {
-    key: "1",
-    serialId: "USR-1001",
-    userName: "John Doe",
-    email: "john.doe@example.com",
-    address: "123 Bay Street, Apt 204",
-    city: "Toronto",
-    createdAt: "2025-10-12",
-    country: "Canada",
-    status: "active",
-  },
-  {
-    key: "2",
-    serialId: "USR-1002",
-    userName: "Sarah Johnson",
-    email: "sarah.johnson@example.com",
-    address: "45 Granville Ave",
-    city: "Vancouver",
-    createdAt: "2025-09-21",
-    country: "Canada",
-    status: "inactive",
-  },
-  {
-    key: "3",
-    serialId: "USR-1003",
-    userName: "Michael Brown",
-    email: "michael.brown@example.com",
-    address: "78 Crescent Rd, Suite 10",
-    city: "Montreal",
-    createdAt: "2025-08-30",
-    country: "Canada",
-    status: "active",
-  },
-  {
-    key: "4",
-    serialId: "USR-1004",
-    userName: "Emily Davis",
-    email: "emily.davis@example.com",
-    address: "210 9th Ave SE",
-    city: "Calgary",
-    createdAt: "2025-07-14",
-    country: "Canada",
-    status: "inactive",
-  },
-  {
-    key: "5",
-    serialId: "USR-1005",
-    userName: "Robert Wilson",
-    email: "robert.wilson@example.com",
-    address: "14 Elgin St, Downtown",
-    city: "Ottawa",
-    createdAt: "2025-06-03",
-    country: "Canada",
-    status: "active",
-  },
-  {
-    key: "6",
-    serialId: "USR-1006",
-    userName: "Olivia Martin",
-    email: "olivia.martin@example.com",
-    address: "520 Jasper Ave NW",
-    city: "Edmonton",
-    createdAt: "2025-05-26",
-    country: "Canada",
-    status: "active",
-  },
-  {
-    key: "7",
-    serialId: "USR-1007",
-    userName: "Daniel Thompson",
-    email: "daniel.thompson@example.com",
-    address: "321 Broadway Ave",
-    city: "Winnipeg",
-    createdAt: "2025-04-17",
-    country: "Canada",
-    status: "inactive",
-  },
-  {
-    key: "8",
-    serialId: "USR-1008",
-    userName: "Sophia White",
-    email: "sophia.white@example.com",
-    address: "55 Rue Saint-Jean",
-    city: "Quebec City",
-    createdAt: "2025-03-08",
-    country: "Canada",
-    status: "active",
-  },
-  {
-    key: "9",
-    serialId: "USR-1009",
-    userName: "James Anderson",
-    email: "james.anderson@example.com",
-    address: "200 Barrington St",
-    city: "Halifax",
-    createdAt: "2025-02-22",
-    country: "Canada",
-    status: "inactive",
-  },
-  {
-    key: "10",
-    serialId: "USR-1010",
-    userName: "Ava Taylor",
-    email: "ava.taylor@example.com",
-    address: "99 Main St W",
-    city: "Hamilton",
-    createdAt: "2025-01-15",
-    country: "Canada",
-    status: "active",
-  },
+const userData: DriverTypes[] = [
+    {
+        key: '1',
+        serialId: 'DRV-1001',
+        userName: 'John Doe',
+        email: 'john.doe@example.com',
+        address: '123 King Street W, Apt 12',
+        city: 'Toronto',
+        vehicleType: 'Car',
+        licenseNo: 'ON-2345678',
+        files: 'Profile, NID, License',
+        status: 'active',
+    },
+    {
+        key: '2',
+        serialId: 'DRV-1002',
+        userName: 'Sarah Johnson',
+        email: 'sarah.johnson@example.com',
+        address: '58 W 5th Ave',
+        city: 'Vancouver',
+        vehicleType: 'Motorbike',
+        licenseNo: 'BC-7865432',
+        files: 'Profile, NID',
+        status: 'inactive',
+    },
+    {
+        key: '3',
+        serialId: 'DRV-1003',
+        userName: 'Michael Brown',
+        email: 'michael.brown@example.com',
+        address: '432 Rue Sainte-Catherine',
+        city: 'Montreal',
+        vehicleType: 'Car',
+        licenseNo: 'QC-1239876',
+        files: 'Profile, NID, License',
+        status: 'active',
+    },
+    {
+        key: '4',
+        serialId: 'DRV-1004',
+        userName: 'Emily Davis',
+        email: 'emily.davis@example.com',
+        address: '89 9th Ave SE',
+        city: 'Calgary',
+        vehicleType: 'Bicycle',
+        licenseNo: 'AB-5647382',
+        files: 'Profile, License',
+        status: 'inactive',
+    },
+    {
+        key: '5',
+        serialId: 'DRV-1005',
+        userName: 'Robert Wilson',
+        email: 'robert.wilson@example.com',
+        address: '35 Queen St',
+        city: 'Ottawa',
+        vehicleType: 'Car',
+        licenseNo: 'ON-9081723',
+        files: 'Profile, NID, License',
+        status: 'active',
+    },
+    {
+        key: '6',
+        serialId: 'DRV-1006',
+        userName: 'Olivia Martin',
+        email: 'olivia.martin@example.com',
+        address: '120 Jasper Ave NW',
+        city: 'Edmonton',
+        vehicleType: 'Van',
+        licenseNo: 'AB-7756210',
+        files: 'Profile, License',
+        status: 'active',
+    },
+    {
+        key: '7',
+        serialId: 'DRV-1007',
+        userName: 'Daniel Thompson',
+        email: 'daniel.thompson@example.com',
+        address: '21 Broadway Ave',
+        city: 'Winnipeg',
+        vehicleType: 'Motorbike',
+        licenseNo: 'MB-4556239',
+        files: 'Profile, NID',
+        status: 'inactive',
+    },
+    {
+        key: '8',
+        serialId: 'DRV-1008',
+        userName: 'Sophia White',
+        email: 'sophia.white@example.com',
+        address: '88 Rue Saint-Jean',
+        city: 'Quebec City',
+        vehicleType: 'Car',
+        licenseNo: 'QC-9988123',
+        files: 'Profile, NID, License',
+        status: 'active',
+    },
+    {
+        key: '9',
+        serialId: 'DRV-1009',
+        userName: 'James Anderson',
+        email: 'james.anderson@example.com',
+        address: '200 Barrington St',
+        city: 'Halifax',
+        vehicleType: 'Bicycle',
+        licenseNo: 'NS-3388271',
+        files: 'Profile',
+        status: 'inactive',
+    },
+    {
+        key: '10',
+        serialId: 'DRV-1010',
+        userName: 'Ava Taylor',
+        email: 'ava.taylor@example.com',
+        address: '75 Main St W',
+        city: 'Hamilton',
+        vehicleType: 'Car',
+        licenseNo: 'ON-4467890',
+        files: 'Profile, License',
+        status: 'active',
+    },
 ];
 
-export default function Users({ dashboard }: { dashboard?: boolean }) {
+export default function Drivers({ dashboard }: { dashboard?: boolean }) {
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-    const [selectedUser, setSelectedUser] = useState<User | null>(null);
+    const [selectedUser, setSelectedUser] = useState<DriverTypes | null>(null);
     const [isBlockModalVisible, setIsBlockModalVisible] = useState<boolean>(false);
-    const [userToBlock, setUserToBlock] = useState<User | null>(null);
+    const [userToBlock, setUserToBlock] = useState<DriverTypes | null>(null);
 
-    const showUserDetails = (user: User) => {
+    const showUserDetails = (user: DriverTypes) => {
         setSelectedUser(user);
         setIsModalVisible(true);
     };
@@ -170,7 +180,7 @@ export default function Users({ dashboard }: { dashboard?: boolean }) {
         setSelectedUser(null);
     };
 
-    const showBlockModal = (user: User) => {
+    const showBlockModal = (user: DriverTypes) => {
         setUserToBlock(user);
         setIsBlockModalVisible(true);
     };
@@ -261,25 +271,31 @@ export default function Users({ dashboard }: { dashboard?: boolean }) {
                     </div>
                 </div>
             ),
-            onFilter: (value: boolean | React.Key, record: User) => record.city === value,
+            onFilter: (value: boolean | React.Key, record: DriverTypes) => record.city === value,
             render: (city: string) => city,
         },
         {
-            title: 'Registration Date',
-            dataIndex: 'createdAt',
-            key: 'createdAt',
+            title: 'Vehicle Type',
+            dataIndex: 'vehicleType',
+            key: 'vehicleType',
             responsive: ['sm'] as any,
         },
         {
-            title: 'Country',
-            dataIndex: 'country',
-            key: 'country',
+            title: 'License No.',
+            dataIndex: 'licenseNo',
+            key: 'licenseNo',
+            responsive: ['sm'] as any,
+        },
+        {
+            title: 'Uploaded Files',
+            dataIndex: 'files',
+            key: 'files',
             responsive: ['sm'] as any,
         },
         {
             title: 'Action',
             key: 'action',
-            render: (_: any, record: User) => (
+            render: (_: any, record: DriverTypes) => (
                 <div className="flex gap-2">
                     <Button
                         type="text"

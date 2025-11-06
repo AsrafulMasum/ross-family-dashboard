@@ -51,6 +51,7 @@ const Sidebar = () => {
                         theme={{
                             token: {
                                 colorText: '#808080',
+                                motionDurationFast: '0.1s',
                             },
                             components: {
                                 Menu: {

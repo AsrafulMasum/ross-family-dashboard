@@ -1,76 +1,81 @@
-
 import { BsPatchQuestion } from 'react-icons/bs';
 import { TSidebarItem } from './generateSidebarItems';
-import { LuClipboardList } from 'react-icons/lu';
+import { LuClipboardList, LuLayoutDashboard } from 'react-icons/lu';
 import { TbBook } from 'react-icons/tb';
-
+import { PiChefHat, PiSteeringWheelLight } from 'react-icons/pi';
+import { HiOutlineClipboardDocumentList } from 'react-icons/hi2';
+import { MdOutlineCategory } from 'react-icons/md';
+import { GiSandsOfTime } from 'react-icons/gi';
+import { BiUser } from 'react-icons/bi';
+import { CiCreditCard1, CiSettings, CiStar } from 'react-icons/ci';
+import { RiRefund2Fill } from 'react-icons/ri';
 
 const sidebarItems: TSidebarItem[] = [
     {
-        key: 'client-list',
-        label: 'Analytics',
+        key: 'dashboard',
+        label: 'Dashboard',
         path: '',
-        icon: "/icons/analtycs.png",
+        icon: <LuLayoutDashboard size={24} />,
+    },
+    {
+        key: 'orders',
+        label: 'Orders',
+        path: 'orders',
+        icon: <HiOutlineClipboardDocumentList size={24} />,
+    },
+    {
+        key: 'categories',
+        label: 'Categories',
+        path: 'categories',
+        icon: <MdOutlineCategory size={24} />,
+    },
+    {
+        key: 'waiting-list',
+        label: 'Waiting List',
+        path: 'waiting-list',
+        icon: <GiSandsOfTime size={24} />,
+    },
+    {
+        key: 'chefs',
+        label: 'Chefs',
+        path: 'chefs',
+        icon: <PiChefHat size={24} />,
     },
     {
         key: 'users',
-        label: 'Users',
+        label: 'Customers',
         path: 'users',
-        icon: "/icons/users.png",
+        icon: <BiUser size={24} />,
     },
     {
-        key: 'package',
-        label: 'Package',
-        path: 'package',
-        icon:"/icons/package.png", 
+        key: 'drivers',
+        label: 'Drivers',
+        path: 'drivers',
+        icon: <PiSteeringWheelLight size={24} />,
     },
     {
-        key: 'study-notes',
-        label: 'Study Notes',
-        path: 'study-notes',
-        icon: "/icons/study-notes.png",
+        key: 'reviews',
+        label: 'Reviews',
+        path: 'reviews',
+        icon: <CiStar size={24} />,
     },
     {
-        key: 'body-system',
-        label: 'Body System',
-        path: 'body-system',
-        icon: "/icons/body-system.png",
+        key: 'transactions',
+        label: 'Transactions',
+        path: 'transactions',
+        icon: <CiCreditCard1 size={24} />,
     },
     {
-        key: 'patient-assessment',
-        label: 'Patient Assessment',
-        path: 'patient-assessment',
-        icon: "/icons/assessment.png",
-    },
-    {
-        key: 'clinical-skills',
-        label: 'Clinical Skills',
-        path: 'clinical-skills',
-        icon: "/icons/clinical-skill.png",
-    },
-    {
-        key: 'templates',
-        label: 'Templates',
-        path: 'templates',
-        icon: "/icons/templates.png",
-    },
-    {
-        key: 'exams',
-        label: 'Exams',
-        path: 'exams',
-        icon: "/icons/quiz.png",
-    },
-    {
-        key: 'flashcards',
-        label: 'Flashcards',
-        path: 'flashcards',
-        icon: "/icons/flashcard.png",
+        key: 'refund-requests',
+        label: 'Refund Requests',
+        path: 'refund-requests',
+        icon: <RiRefund2Fill size={24} />,
     },
     {
         key: 'settings',
         label: 'Settings',
         path: 'settings',
-        icon: "/icons/setting.png",
+        icon: <CiSettings size={24} />,
         children: [
             {
                 key: 'about-us',
@@ -91,13 +96,13 @@ const sidebarItems: TSidebarItem[] = [
                 icon: <LuClipboardList size={20} />,
             },
             {
-                key: 'faq',
-                label: 'FAQ',
-                path: 'faq',
+                key: 'disclaimer',
+                label: 'Disclaimer',
+                path: 'disclaimer',
                 icon: <BsPatchQuestion size={20} />,
             },
         ],
-    }
+    },
 ];
 
 export default sidebarItems;
