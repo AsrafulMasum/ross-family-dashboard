@@ -153,3 +153,11 @@ export interface ChefsTypes {
     revenue: number;
     status: string;
 }
+
+export interface CategoryTypes {
+    key: string;
+    categoryName: string;
+    totalDishes: number;
+    city: string;
+    deliveryStatus: 'active' | 'inactive';
+}

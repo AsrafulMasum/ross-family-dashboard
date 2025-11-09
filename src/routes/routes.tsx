@@ -19,6 +19,7 @@ import Drivers from '../pages/dashboard/drivers';
 import Chefs from '../pages/dashboard/chefs';
 import AboutUs from '../pages/dashboard/about-us';
 import Disclaimer from '../pages/dashboard/disclaimer';
+import Category from '../pages/dashboard/category';
 
 const router = createBrowserRouter([
     {
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
         children: [
             { path: '', element: <Dashboard /> },
             { path: 'orders', element: <Orders /> },
+            { path: 'categories', element: <Category /> },
             { path: 'waiting-list', element: <WaitingList /> },
             { path: "chefs", element: <Chefs /> },
             { path: "users", element: <Users /> },
