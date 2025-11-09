@@ -11,7 +11,7 @@ const PrimaryButton = ({ onClick, icon, children, width }: TButton) => {
         <Button
             onClick={onClick}
             style={{
-                backgroundColor: '#2461CB',
+                backgroundColor: '#59A817',
                 width: width ? width : '100%',
 
                 height: '40px',

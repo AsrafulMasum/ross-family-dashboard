@@ -70,7 +70,7 @@ export default function NoteTab({
         border: "none",
         // padding: "12px",
       }}
-      className="bg-white p-4"
+      className="bg-white rounded-lg py-4"
     >
       <JoditEditor
         ref={editor}

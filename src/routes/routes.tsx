@@ -17,6 +17,8 @@ import Orders from '../pages/dashboard/orders';
 import WaitingList from '../pages/dashboard/waiting-list';
 import Drivers from '../pages/dashboard/drivers';
 import Chefs from '../pages/dashboard/chefs';
+import AboutUs from '../pages/dashboard/about-us';
+import Disclaimer from '../pages/dashboard/disclaimer';
 
 const router = createBrowserRouter([
     {
@@ -35,6 +37,8 @@ const router = createBrowserRouter([
             { path: 'notification', element: <Notification /> },
             { path: "privacy-policy", element: <PrivacyPolicy /> },
             { path: "terms-and-condition", element: <TermsAndCondition /> },
+            { path: "about-us", element: <AboutUs /> },
+            { path: "disclaimer", element: <Disclaimer /> },
             { path: "faq", element: <FAQPage /> },
         ],
     },
