@@ -161,3 +161,15 @@ export interface CategoryTypes {
     city: string;
     deliveryStatus: 'active' | 'inactive';
 }
+
+export interface ReviewTypes {
+    key: string;
+    customerName: string;
+    chefName: string;
+    dishName: string;
+    rating: number;
+    city: string;
+    reviewText: string;
+    createdAt: string;
+    status: string;
+}
