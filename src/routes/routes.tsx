@@ -22,6 +22,7 @@ import Disclaimer from '../pages/dashboard/disclaimer';
 import Category from '../pages/dashboard/category';
 import Reviews from '../pages/dashboard/reviews';
 import Refund from '../pages/dashboard/refund';
+import Transactions from '../pages/dashboard/transactions';
 
 const router = createBrowserRouter([
     {
@@ -37,6 +38,7 @@ const router = createBrowserRouter([
             { path: "users", element: <Users /> },
             { path: "drivers", element: <Drivers /> },
             { path: "reviews", element: <Reviews /> },
+            { path: "transactions", element: <Transactions /> },
             { path: "refund-requests", element: <Refund /> },
             { path: "package", element: <Packages /> },
             { path: 'profile', element: <Profile /> },

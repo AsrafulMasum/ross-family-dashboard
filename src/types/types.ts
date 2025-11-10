@@ -175,13 +175,29 @@ export interface ReviewTypes {
 }
 
 export interface RefundType {
-  key: string;
-  orderNumber: string;
-  customerName: string;
-  chefName: string;
-  refundType: string;
-  paidAmount: string;
-  refundPercentage: string;
-  reason: string;
-  deliveryStatus: 'Approved' | 'Pending' | 'Rejected';
+    key: string;
+    orderNumber: string;
+    customerName: string;
+    chefName: string;
+    refundType: string;
+    paidAmount: string;
+    refundPercentage: string;
+    reason: string;
+    deliveryStatus: 'Approved' | 'Pending' | 'Rejected';
+}
+
+export interface TransactionTypes {
+    key: string;
+    transactionID: string;
+    name: string;
+    email: string;
+    city: string;
+    date: string;
+    totalSales?: string;
+    totalDeliveries?: number;
+    totalOrders?: number;
+    payment?: string;
+    income?: string;
+    revenue: string;
+    deliveryStatus: 'Approved' | 'Pending' | 'Rejected';
 }
