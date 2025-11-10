@@ -173,3 +173,15 @@ export interface ReviewTypes {
     createdAt: string;
     status: string;
 }
+
+export interface RefundType {
+  key: string;
+  orderNumber: string;
+  customerName: string;
+  chefName: string;
+  refundType: string;
+  paidAmount: string;
+  refundPercentage: string;
+  reason: string;
+  deliveryStatus: 'Approved' | 'Pending' | 'Rejected';
+}
