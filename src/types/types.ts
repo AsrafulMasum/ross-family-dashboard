@@ -95,6 +95,7 @@ export interface INotification {
 }
 
 export interface Order {
+    email: string;
     key: string;
     orderNumber: string;
     customerName: string;
@@ -106,6 +107,7 @@ export interface Order {
     orderData: string;
     deliveryStatus: 'pending' | 'completed' | 'cancelled' | 'delivered';
     status: 'active' | 'inactive';
+    productImage: string;
 }
 
 export interface WaitingListTypes {

@@ -1,10 +1,10 @@
 import { Button, ConfigProvider, Input, Select, Table } from 'antd';
-import { EyeOutlined, LockOutlined } from '@ant-design/icons';
 import type { ColumnType } from 'antd/es/table/interface';
-// import { User } from '../../../demo-data/users.data';
-// import { useState } from 'react';
 import HeaderTitle from '../../../components/shared/HeaderTitle';
 import { Order } from '../../../types/types';
+import { CiCircleInfo } from 'react-icons/ci';
+import { useState } from 'react';
+import OrderDetailsModal from '../../../components/modals/OrderDetailsModal';
 
 const { Option } = Select;
 
@@ -45,6 +45,7 @@ const data: Order[] = [
         key: '1',
         orderNumber: 'ORD-1001',
         customerName: 'John Doe',
+        email: 'john.doe@example.com',
         chefName: 'Chef Ramsey',
         itemCount: 5,
         city: 'Toronto',
@@ -53,11 +54,13 @@ const data: Order[] = [
         orderData: '2025-11-01',
         deliveryStatus: 'completed',
         status: 'active',
+        productImage: 'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=500&auto=format&fit=crop&q=80',
     },
     {
         key: '2',
         orderNumber: 'ORD-1002',
         customerName: 'Jane Smith',
+        email: 'jane.smith@example.com',
         chefName: 'Chef Oliver',
         itemCount: 3,
         city: 'Vancouver',
@@ -66,11 +69,13 @@ const data: Order[] = [
         orderData: '2025-11-02',
         deliveryStatus: 'pending',
         status: 'active',
+        productImage: 'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=500&auto=format&fit=crop&q=80',
     },
     {
         key: '3',
         orderNumber: 'ORD-1003',
         customerName: 'Michael Brown',
+        email: 'michael.brown@example.com',
         chefName: 'Chef Marie',
         itemCount: 7,
         city: 'Montreal',
@@ -79,11 +84,13 @@ const data: Order[] = [
         orderData: '2025-11-03',
         deliveryStatus: 'delivered',
         status: 'inactive',
+        productImage: 'https://images.unsplash.com/photo-1605478571962-9b8d2b8e8f5a?w=500&auto=format&fit=crop&q=80',
     },
     {
         key: '4',
         orderNumber: 'ORD-1004',
         customerName: 'Emily Davis',
+        email: 'emily.davis@example.com',
         chefName: 'Chef Luca',
         itemCount: 2,
         city: 'Calgary',
@@ -92,11 +99,13 @@ const data: Order[] = [
         orderData: '2025-11-04',
         deliveryStatus: 'cancelled',
         status: 'inactive',
+        productImage: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&auto=format&fit=crop&q=80',
     },
     {
         key: '5',
         orderNumber: 'ORD-1005',
         customerName: 'Robert Wilson',
+        email: 'robert.wilson@example.com',
         chefName: 'Chef Kim',
         itemCount: 4,
         city: 'Ottawa',
@@ -105,11 +114,13 @@ const data: Order[] = [
         orderData: '2025-11-05',
         deliveryStatus: 'completed',
         status: 'active',
+        productImage: 'https://images.unsplash.com/photo-1604909052868-92a5b4b6e6cf?w=500&auto=format&fit=crop&q=80',
     },
     {
         key: '6',
         orderNumber: 'ORD-1001',
         customerName: 'John Doe',
+        email: 'john.doe@example.com',
         chefName: 'Chef Ramsey',
         itemCount: 5,
         city: 'Toronto',
@@ -118,11 +129,13 @@ const data: Order[] = [
         orderData: '2025-11-01',
         deliveryStatus: 'completed',
         status: 'active',
+        productImage: 'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=500&auto=format&fit=crop&q=80',
     },
     {
         key: '7',
         orderNumber: 'ORD-1002',
         customerName: 'Jane Smith',
+        email: 'jane.smith@example.com',
         chefName: 'Chef Oliver',
         itemCount: 3,
         city: 'Vancouver',
@@ -131,11 +144,13 @@ const data: Order[] = [
         orderData: '2025-11-02',
         deliveryStatus: 'pending',
         status: 'active',
+        productImage: 'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=500&auto=format&fit=crop&q=80',
     },
     {
         key: '8',
         orderNumber: 'ORD-1003',
         customerName: 'Michael Brown',
+        email: 'michael.brown@example.com',
         chefName: 'Chef Marie',
         itemCount: 7,
         city: 'Montreal',
@@ -144,11 +159,13 @@ const data: Order[] = [
         orderData: '2025-11-03',
         deliveryStatus: 'delivered',
         status: 'inactive',
+        productImage: 'https://images.unsplash.com/photo-1605478571962-9b8d2b8e8f5a?w=500&auto=format&fit=crop&q=80',
     },
     {
         key: '9',
         orderNumber: 'ORD-1004',
         customerName: 'Emily Davis',
+        email: 'emily.davis@example.com',
         chefName: 'Chef Luca',
         itemCount: 2,
         city: 'Calgary',
@@ -157,11 +174,13 @@ const data: Order[] = [
         orderData: '2025-11-04',
         deliveryStatus: 'cancelled',
         status: 'inactive',
+        productImage: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&auto=format&fit=crop&q=80',
     },
     {
         key: '10',
         orderNumber: 'ORD-1005',
         customerName: 'Robert Wilson',
+        email: 'robert.wilson@example.com',
         chefName: 'Chef Kim',
         itemCount: 4,
         city: 'Ottawa',
@@ -170,8 +189,10 @@ const data: Order[] = [
         orderData: '2025-11-05',
         deliveryStatus: 'completed',
         status: 'active',
+        productImage: 'https://images.unsplash.com/photo-1604909052868-92a5b4b6e6cf?w=500&auto=format&fit=crop&q=80',
     },
 ];
+
 
 const statusColorMap = {
     pending: { color: '#D48806', bg: '#F7F1CC' },
@@ -183,38 +204,7 @@ const statusColorMap = {
 };
 
 export default function Orders({ dashboard }: { dashboard?: boolean }) {
-    // const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-    // const [selectedUser, setSelectedUser] = useState<User | null>(null);
-    // const [isBlockModalVisible, setIsBlockModalVisible] = useState<boolean>(false);
-    // const [userToBlock, setUserToBlock] = useState<User | null>(null);
-
-    // const showUserDetails = (user: User) => {
-    //     setSelectedUser(user);
-    //     setIsModalVisible(true);
-    // };
-
-    // const handleModalClose = () => {
-    //     setIsModalVisible(false);
-    //     setSelectedUser(null);
-    // };
-
-    // const showBlockModal = (user: User) => {
-    //     setUserToBlock(user);
-    //     setIsBlockModalVisible(true);
-    // };
-
-    // const handleBlockConfirm = () => {
-    //     // Handle block user logic here
-    //     console.log('Blocking user:', userToBlock);
-    //     setIsBlockModalVisible(false);
-    //     setUserToBlock(null);
-    // };
-
-    // const handleBlockCancel = () => {
-    //     setIsBlockModalVisible(false);
-    //     setUserToBlock(null);
-    // };
-    // import type { ColumnType } from 'antd/es/table';
+    const [showOrderDetails, setShowOrderDetails] = useState<Order | null>(null);
 
     const columns: ColumnType<Order>[] = [
         {
@@ -344,19 +334,9 @@ export default function Orders({ dashboard }: { dashboard?: boolean }) {
                 <div className="flex gap-2">
                     <Button
                         type="text"
-                        icon={<EyeOutlined />}
+                        icon={<CiCircleInfo size={24} />}
                         className="text-gray-500 hover:text-blue-500"
-                        // onClick={() => showUserDetails(record)}
-                    />
-                    <Button
-                        type="text"
-                        icon={<LockOutlined />}
-                        className={
-                            record?.status == 'active'
-                                ? 'text-gray-500 hover:!text-red-500'
-                                : 'hover:!text-gray-500 !text-red-500'
-                        }
-                        // onClick={() => showBlockModal(record)}
+                        onClick={() => setShowOrderDetails(record)}
                     />
                 </div>
             ),
@@ -398,6 +378,7 @@ export default function Orders({ dashboard }: { dashboard?: boolean }) {
                     />
                 </ConfigProvider>
             </div>
+            <OrderDetailsModal showOrderDetails={showOrderDetails} setShowOrderDetails={setShowOrderDetails} />
         </>
     );
 }
