@@ -21,7 +21,7 @@ const Login = () => {
         <ConfigProvider
             theme={{
                 token: {
-                    colorPrimary: '#083A65',
+                    colorPrimary: '#59A817',
 
                     colorBgContainer: '#F1F4F9',
                 },
@@ -79,7 +79,7 @@ const Login = () => {
                             <Form.Item name="remember" valuePropName="checked" noStyle>
                                 <Checkbox className="text-primaryText text-lg">Remember me</Checkbox>
                             </Form.Item>
-                            <Link to="/forget-password" className="text-primary text-md ">
+                            <Link to="/forget-password" className="text-primary text-md hover:text-primary">
                                 Forget password
                             </Link>
                         </div>

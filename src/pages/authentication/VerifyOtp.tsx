@@ -33,7 +33,7 @@ const VerifyOtp = () => {
                     },
                 },
                 token: {
-                    colorPrimary: '#083A65',
+                    colorPrimary: '#59A817',
                 },
             }}
         >
