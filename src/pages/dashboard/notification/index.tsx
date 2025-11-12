@@ -109,7 +109,7 @@ export default function NotificationPage() {
           <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
             <h2 className="text-lg font-semibold text-gray-900">Notifications</h2>
             <button
-              className={`flex items-center gap-2 px-5 py-2 rounded-lg bg-teal-500 hover:bg-teal-600 focus:ring-2 focus:ring-teal-400 transition text-white text-sm font-semibold shadow-sm border border-teal-500`}
+              className={`flex items-center gap-2 px-5 py-2 rounded-lg bg-primary hover:bg-primary transition text-white text-sm font-semibold shadow-sm`}
               onClick={handleReadAll}
               disabled={!hasUnread}
               style={{
@@ -136,11 +136,11 @@ export default function NotificationPage() {
                 >
                   {/* Status Indicator */}
                   <div className={`w-2.5 h-2.5 mt-4 rounded-full flex-shrink-0 ${
-                    !notif.read ? 'bg-green-500' : 'bg-transparent'
+                    !notif.read ? 'bg-primary' : 'bg-transparent'
                   }`} />
 
                   {/* Avatar */}
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex-shrink-0 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-green-200 flex-shrink-0 flex items-center justify-center">
                     <span className="text-white text-sm font-semibold">{notif.avatar}</span>
                   </div>
 
