@@ -1,44 +1,46 @@
-import { Button, ConfigProvider, Rate, Table } from 'antd';
+import { Button, ConfigProvider, Rate, Select, Table } from 'antd';
 import type { ColumnType } from 'antd/es/table/interface';
 import HeaderTitle from '../../../components/shared/HeaderTitle';
 import { ReviewTypes } from '../../../types/types';
 import { CiCircleInfo } from 'react-icons/ci';
 import { IoCheckmarkOutline } from 'react-icons/io5';
 import { IoMdClose } from 'react-icons/io';
+import { useState } from 'react';
+import ReviewDetailsModal from '../../../components/modals/ReviewDetailsModal';
 
-// const { Option } = Select;
+const { Option } = Select;
 
-// const canadianCities = [
-//     'Toronto',
-//     'Vancouver',
-//     'Montreal',
-//     'Calgary',
-//     'Edmonton',
-//     'Ottawa',
-//     'Winnipeg',
-//     'Quebec City',
-//     'Hamilton',
-//     'Kitchener',
-//     'London',
-//     'Victoria',
-//     'Halifax',
-//     'Oshawa',
-//     'Windsor',
-//     'Saskatoon',
-//     'Regina',
-//     'St. Johns',
-//     'Barrie',
-//     'Kelowna',
-//     'Abbotsford',
-//     'Sherbrooke',
-//     'Guelph',
-//     'Kingston',
-//     'Forfield', // From your original data
-//     'Noperville', // From your original data
-//     'Orange', // From your original data
-//     'Toledo', // From your original data
-//     'Austin', // From your original data
-// ];
+const canadianCities = [
+    'Toronto',
+    'Vancouver',
+    'Montreal',
+    'Calgary',
+    'Edmonton',
+    'Ottawa',
+    'Winnipeg',
+    'Quebec City',
+    'Hamilton',
+    'Kitchener',
+    'London',
+    'Victoria',
+    'Halifax',
+    'Oshawa',
+    'Windsor',
+    'Saskatoon',
+    'Regina',
+    'St. Johns',
+    'Barrie',
+    'Kelowna',
+    'Abbotsford',
+    'Sherbrooke',
+    'Guelph',
+    'Kingston',
+    'Forfield', // From your original data
+    'Noperville', // From your original data
+    'Orange', // From your original data
+    'Toledo', // From your original data
+    'Austin', // From your original data
+];
 
 const orderData: ReviewTypes[] = [
     {
@@ -270,6 +272,14 @@ const statusColorMap = {
 };
 
 export default function Reviews({ dashboard }: { dashboard?: boolean }) {
+    const [selectedReview, setSelectedReview] = useState<ReviewTypes | null>(null);
+    const [showModal, setShowModal] = useState(false);
+
+    const showUserDetails = (record: ReviewTypes) => {
+        setSelectedReview(record);
+        setShowModal(true);
+    };
+
     const columns: ColumnType<ReviewTypes>[] = [
         {
             title: 'Serial No.',
@@ -299,60 +309,60 @@ export default function Reviews({ dashboard }: { dashboard?: boolean }) {
             responsive: ['md'] as any,
             render: (_, record) => <Rate disabled defaultValue={record.rating} style={{ color: '#59A817' }} />,
         },
-        // {
-        //     title: 'City',
-        //     dataIndex: 'city',
-        //     key: 'city',
-        //     responsive: ['lg'] as any,
-        //     filterDropdown: ({
-        //         setSelectedKeys,
-        //         selectedKeys,
-        //         confirm,
-        //         clearFilters,
-        //     }: {
-        //         setSelectedKeys?: (keys: React.Key[]) => void;
-        //         selectedKeys?: React.Key[];
-        //         confirm?: () => void;
-        //         clearFilters?: () => void;
-        //     }) => (
-        //         <div style={{ padding: 8 }}>
-        //             <Select
-        //                 placeholder="Select a Canadian city"
-        //                 value={selectedKeys?.[0] ?? undefined}
-        //                 style={{ width: 200 }}
-        //                 onChange={(value) => {
-        //                     setSelectedKeys?.(value ? [value] : []);
-        //                     confirm?.();
-        //                 }}
-        //                 allowClear
-        //                 showSearch
-        //                 filterOption={(input, option) =>
-        //                     (option?.children as unknown as string).toLowerCase().includes(input.toLowerCase())
-        //                 }
-        //             >
-        //                 {canadianCities?.map((city) => (
-        //                     <Option key={city} value={city}>
-        //                         {city}
-        //                     </Option>
-        //                 ))}
-        //             </Select>
-        //             <div style={{ marginTop: 8 }}>
-        //                 <a
-        //                     onClick={() => {
-        //                         clearFilters?.();
-        //                         confirm?.();
-        //                     }}
-        //                     style={{ width: 90, marginRight: 8 }}
-        //                     className="hover:text-primary"
-        //                 >
-        //                     Reset
-        //                 </a>
-        //             </div>
-        //         </div>
-        //     ),
-        //     onFilter: (value: boolean | React.Key, record: ReviewTypes) => record.city === value,
-        //     render: (city: string) => city,
-        // },
+        {
+            title: 'City',
+            dataIndex: 'city',
+            key: 'city',
+            responsive: ['lg'] as any,
+            filterDropdown: ({
+                setSelectedKeys,
+                selectedKeys,
+                confirm,
+                clearFilters,
+            }: {
+                setSelectedKeys?: (keys: React.Key[]) => void;
+                selectedKeys?: React.Key[];
+                confirm?: () => void;
+                clearFilters?: () => void;
+            }) => (
+                <div style={{ padding: 8 }}>
+                    <Select
+                        placeholder="Select a Canadian city"
+                        value={selectedKeys?.[0] ?? undefined}
+                        style={{ width: 200 }}
+                        onChange={(value) => {
+                            setSelectedKeys?.(value ? [value] : []);
+                            confirm?.();
+                        }}
+                        allowClear
+                        showSearch
+                        filterOption={(input, option) =>
+                            (option?.children as unknown as string).toLowerCase().includes(input.toLowerCase())
+                        }
+                    >
+                        {canadianCities?.map((city) => (
+                            <Option key={city} value={city}>
+                                {city}
+                            </Option>
+                        ))}
+                    </Select>
+                    <div style={{ marginTop: 8 }}>
+                        <a
+                            onClick={() => {
+                                clearFilters?.();
+                                confirm?.();
+                            }}
+                            style={{ width: 90, marginRight: 8 }}
+                            className="hover:text-primary"
+                        >
+                            Reset
+                        </a>
+                    </div>
+                </div>
+            ),
+            onFilter: (value: boolean | React.Key, record: ReviewTypes) => record.city === value,
+            render: (city: string) => city,
+        },
         {
             title: 'Review Text',
             dataIndex: 'reviewText',
@@ -370,33 +380,6 @@ export default function Reviews({ dashboard }: { dashboard?: boolean }) {
             key: 'createdAt',
             responsive: ['lg'] as any,
         },
-        // {
-        //     title: 'Status',
-        //     dataIndex: 'status',
-        //     key: 'status',
-        //     render: (status: ReviewTypes['status'], record: ReviewTypes) => {
-        //         const key = status as keyof typeof statusColorMap;
-        //         const currentStyle =
-        //             status in statusColorMap
-        //                 ? statusColorMap[key]
-        //                 : {
-        //                       color: '#595959',
-        //                       bg: '#FAFAFA',
-        //                   };
-
-        //         return (
-        //             <p
-        //                 className="capitalize px-1 py-0.5 text-center rounded-lg"
-        //                 style={{
-        //                     color: currentStyle.color,
-        //                     backgroundColor: currentStyle.bg,
-        //                 }}
-        //             >
-        //                 {record?.status}
-        //             </p>
-        //         );
-        //     },
-        // },
         {
             title: 'Status',
             dataIndex: 'status',
@@ -428,13 +411,13 @@ export default function Reviews({ dashboard }: { dashboard?: boolean }) {
         {
             title: 'Action',
             key: 'action',
-            render: (_: any) => (
+            render: (_, record) => (
                 <div className="flex gap-2">
                     <Button
                         type="text"
                         icon={<CiCircleInfo size={24} />}
                         className="text-gray-500 hover:text-blue-500"
-                        // onClick={() => showUserDetails(record)}
+                        onClick={() => showUserDetails(record)}
                     />
                     <Button
                         type="text"
@@ -474,6 +457,8 @@ export default function Reviews({ dashboard }: { dashboard?: boolean }) {
                     />
                 </ConfigProvider>
             </div>
+
+            <ReviewDetailsModal open={showModal} onClose={() => setShowModal(false)} review={selectedReview} />
         </>
     );
 }

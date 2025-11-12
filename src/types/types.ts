@@ -186,6 +186,8 @@ export interface RefundType {
     refundPercentage: string;
     reason: string;
     deliveryStatus: 'Approved' | 'Pending' | 'Rejected';
+    refundPercent: number;
+    amount: string;
 }
 
 export interface TransactionTypes {
