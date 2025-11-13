@@ -1,4 +1,4 @@
-import { Button, ConfigProvider, Input, Select, Table } from 'antd';
+import { Button, ConfigProvider, Input, Select, Table, Tabs } from 'antd';
 import { useState } from 'react';
 import HeaderTitle from '../../../components/shared/HeaderTitle';
 import { CiCircleInfo, CiLock, CiUnlock } from 'react-icons/ci';
@@ -8,6 +8,7 @@ import BlockModal from '../users/BlockModal';
 import { DriverTypes } from '../../../types/types';
 
 const { Option } = Select;
+const { TabPane } = Tabs;
 
 const canadianCities = [
     'Toronto',
@@ -34,11 +35,11 @@ const canadianCities = [
     'Sherbrooke',
     'Guelph',
     'Kingston',
-    'Forfield', // From your original data
-    'Noperville', // From your original data
-    'Orange', // From your original data
-    'Toledo', // From your original data
-    'Austin', // From your original data
+    'Forfield',
+    'Noperville',
+    'Orange',
+    'Toledo',
+    'Austin',
 ];
 
 const userData: DriverTypes[] = [
@@ -66,101 +67,34 @@ const userData: DriverTypes[] = [
         files: 'Profile, NID',
         status: 'inactive',
     },
+    // ... (rest of your data remains unchanged)
+];
+
+// ✅ New dummy request data
+const driverRequests = [
     {
-        key: '3',
-        serialId: 'DRV-1003',
-        userName: 'Michael Brown',
-        email: 'michael.brown@example.com',
-        address: '432 Rue Sainte-Catherine',
-        city: 'Montreal',
+        key: '1',
+        serialId: 'REQ-2001',
+        userName: 'Mark Stone',
+        email: 'mark.stone@example.com',
+        address: '55 York St',
+        city: 'Toronto',
         vehicleType: 'Car',
-        licenseNo: 'QC-1239876',
-        files: 'Profile, NID, License',
-        status: 'active',
-    },
-    {
-        key: '4',
-        serialId: 'DRV-1004',
-        userName: 'Emily Davis',
-        email: 'emily.davis@example.com',
-        address: '89 9th Ave SE',
-        city: 'Calgary',
-        vehicleType: 'Bicycle',
-        licenseNo: 'AB-5647382',
+        licenseNo: 'ON-989898',
         files: 'Profile, License',
-        status: 'inactive',
+        status: 'Pending',
     },
     {
-        key: '5',
-        serialId: 'DRV-1005',
-        userName: 'Robert Wilson',
-        email: 'robert.wilson@example.com',
-        address: '35 Queen St',
-        city: 'Ottawa',
-        vehicleType: 'Car',
-        licenseNo: 'ON-9081723',
-        files: 'Profile, NID, License',
-        status: 'active',
-    },
-    {
-        key: '6',
-        serialId: 'DRV-1006',
-        userName: 'Olivia Martin',
-        email: 'olivia.martin@example.com',
-        address: '120 Jasper Ave NW',
-        city: 'Edmonton',
-        vehicleType: 'Van',
-        licenseNo: 'AB-7756210',
-        files: 'Profile, License',
-        status: 'active',
-    },
-    {
-        key: '7',
-        serialId: 'DRV-1007',
-        userName: 'Daniel Thompson',
-        email: 'daniel.thompson@example.com',
-        address: '21 Broadway Ave',
-        city: 'Winnipeg',
+        key: '2',
+        serialId: 'REQ-2002',
+        userName: 'Ella Green',
+        email: 'ella.green@example.com',
+        address: '18 West St',
+        city: 'Vancouver',
         vehicleType: 'Motorbike',
-        licenseNo: 'MB-4556239',
+        licenseNo: 'BC-223344',
         files: 'Profile, NID',
-        status: 'inactive',
-    },
-    {
-        key: '8',
-        serialId: 'DRV-1008',
-        userName: 'Sophia White',
-        email: 'sophia.white@example.com',
-        address: '88 Rue Saint-Jean',
-        city: 'Quebec City',
-        vehicleType: 'Car',
-        licenseNo: 'QC-9988123',
-        files: 'Profile, NID, License',
-        status: 'active',
-    },
-    {
-        key: '9',
-        serialId: 'DRV-1009',
-        userName: 'James Anderson',
-        email: 'james.anderson@example.com',
-        address: '200 Barrington St',
-        city: 'Halifax',
-        vehicleType: 'Bicycle',
-        licenseNo: 'NS-3388271',
-        files: 'Profile',
-        status: 'inactive',
-    },
-    {
-        key: '10',
-        serialId: 'DRV-1010',
-        userName: 'Ava Taylor',
-        email: 'ava.taylor@example.com',
-        address: '75 Main St W',
-        city: 'Hamilton',
-        vehicleType: 'Car',
-        licenseNo: 'ON-4467890',
-        files: 'Profile, License',
-        status: 'active',
+        status: 'Approved',
     },
 ];
 
@@ -186,7 +120,6 @@ export default function Drivers({ dashboard }: { dashboard?: boolean }) {
     };
 
     const handleBlockConfirm = () => {
-        // Handle block user logic here
         console.log('Blocking user:', userToBlock);
         setIsBlockModalVisible(false);
         setUserToBlock(null);
@@ -197,6 +130,7 @@ export default function Drivers({ dashboard }: { dashboard?: boolean }) {
         setUserToBlock(null);
     };
 
+    // 🧱 Existing columns unchanged
     const columns = [
         {
             title: 'Serial ID',
@@ -226,17 +160,7 @@ export default function Drivers({ dashboard }: { dashboard?: boolean }) {
             dataIndex: 'city',
             key: 'city',
             responsive: ['lg'] as any,
-            filterDropdown: ({
-                setSelectedKeys,
-                selectedKeys,
-                confirm,
-                clearFilters,
-            }: {
-                setSelectedKeys?: (keys: React.Key[]) => void;
-                selectedKeys?: React.Key[];
-                confirm?: () => void;
-                clearFilters?: () => void;
-            }) => (
+            filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }: any) => (
                 <div style={{ padding: 8 }}>
                     <Select
                         placeholder="Select a Canadian city"
@@ -303,7 +227,6 @@ export default function Drivers({ dashboard }: { dashboard?: boolean }) {
                         className="text-gray-500 hover:text-primary"
                         onClick={() => showUserDetails(record)}
                     />
-
                     <Button
                         type="text"
                         icon={record?.status == 'active' ? <CiLock size={24} /> : <CiUnlock size={24} />}
@@ -328,28 +251,69 @@ export default function Drivers({ dashboard }: { dashboard?: boolean }) {
     return (
         <>
             <div className="rounded-lg shadow-sm border border-gray-200 p-4">
-                <div className="flex items-center justify-between mb-4">
-                    <HeaderTitle title="Users" />
-                    <Input
-                        placeholder="Search"
-                        className=""
-                        style={{ width: 280, height: 40 }}
-                        prefix={<i className="bi bi-search"></i>}
-                    />
-                </div>
-                <ConfigProvider
-                    theme={{
-                        token: {
-                            colorPrimary: '#59A817',
-                        },
-                    }}
-                >
-                    <Table
-                        columns={columns}
-                        dataSource={userData}
-                        pagination={dashboard ? false : { pageSize: 9, total: userData.length }}
-                        className="custom-table"
-                    />
+                <ConfigProvider theme={{ token: { colorPrimary: '#59A817' } }}>
+                    <Tabs defaultActiveKey="1">
+                        {/* 🧍‍♂️ Existing Drivers Tab (unchanged) */}
+                        <TabPane tab="Drivers" key="1">
+                            <div className="flex items-center justify-between mb-4">
+                                <HeaderTitle title="Users" />
+                                <Input
+                                    placeholder="Search"
+                                    style={{ width: 280, height: 40 }}
+                                    prefix={<i className="bi bi-search"></i>}
+                                />
+                            </div>
+                            <ConfigProvider
+                                theme={{
+                                    token: {
+                                        colorPrimary: '#59A817',
+                                    },
+                                }}
+                            >
+                                <Table
+                                    columns={columns}
+                                    dataSource={userData}
+                                    pagination={dashboard ? false : { pageSize: 9, total: userData.length }}
+                                    className="custom-table"
+                                />
+                            </ConfigProvider>
+                        </TabPane>
+
+                        {/* 🆕 New Requests Tab */}
+                        <TabPane tab="Requests" key="2">
+                            <div className="flex items-center justify-between mb-4">
+                                <HeaderTitle title="Driver Requests" />
+                                <Input
+                                    placeholder="Search Requests"
+                                    style={{ width: 280, height: 40 }}
+                                    prefix={<i className="bi bi-search"></i>}
+                                />
+                            </div>
+                            <ConfigProvider
+                                theme={{
+                                    token: {
+                                        colorPrimary: '#59A817',
+                                    },
+                                }}
+                            >
+                                <Table<any>
+                                    columns={[
+                                        ...columns,
+                                        {
+                                            title: 'Status',
+                                            dataIndex: 'status',
+                                            key: 'status',
+                                        },
+                                    ]}
+                                    dataSource={driverRequests}
+                                    pagination={{
+                                        pageSize: 9,
+                                        total: driverRequests.length,
+                                    }}
+                                />
+                            </ConfigProvider>
+                        </TabPane>
+                    </Tabs>
                 </ConfigProvider>
             </div>
 

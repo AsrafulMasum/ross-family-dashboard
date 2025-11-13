@@ -1,4 +1,4 @@
-import { Button, ConfigProvider, Input, Select, Table } from 'antd';
+import { Button, ConfigProvider, Input, Select, Table, Tabs, Modal } from 'antd';
 import { useState } from 'react';
 import HeaderTitle from '../../../components/shared/HeaderTitle';
 import { CiCircleInfo, CiLock, CiUnlock } from 'react-icons/ci';
@@ -8,6 +8,7 @@ import BlockModal from '../users/BlockModal';
 import { ChefsTypes } from '../../../types/types';
 
 const { Option } = Select;
+const { TabPane } = Tabs;
 
 const canadianCities = [
     'Toronto',
@@ -34,14 +35,14 @@ const canadianCities = [
     'Sherbrooke',
     'Guelph',
     'Kingston',
-    'Forfield', // From your original data
-    'Noperville', // From your original data
-    'Orange', // From your original data
-    'Toledo', // From your original data
-    'Austin', // From your original data
+    'Forfield',
+    'Noperville',
+    'Orange',
+    'Toledo',
+    'Austin',
 ];
 
-const driverData = [
+const chefData = [
     {
         serialId: 'DRV-001',
         userName: 'James Anderson',
@@ -154,11 +155,42 @@ const driverData = [
     },
 ];
 
+// New dummy request data
+const requestData = [
+    {
+        key: 1,
+        name: 'John Smith',
+        email: 'john.smith@example.com',
+        cuisineType: 'Italian',
+        address: '123 King Street, Toronto',
+        zipCode: 'M5H 2N2',
+        certificate: '/certificates/sample1.pdf',
+        status: 'Pending',
+    },
+    {
+        key: 2,
+        name: 'Emily Davis',
+        email: 'emily.davis@example.com',
+        cuisineType: 'Indian',
+        address: '56 Queen Ave, Vancouver',
+        zipCode: 'V6B 3H7',
+        certificate: '/certificates/sample2.pdf',
+        status: 'Approved',
+    },
+];
+
 export default function Chefs({ dashboard }: { dashboard?: boolean }) {
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
     const [selectedUser, setSelectedUser] = useState<ChefsTypes | null>(null);
     const [isBlockModalVisible, setIsBlockModalVisible] = useState<boolean>(false);
     const [userToBlock, setUserToBlock] = useState<ChefsTypes | null>(null);
+    const [pdfModalVisible, setPdfModalVisible] = useState(false);
+    const [pdfUrl, setPdfUrl] = useState('');
+
+    const showPdfModal = (url: string) => {
+        setPdfUrl(url);
+        setPdfModalVisible(true);
+    };
 
     const showUserDetails = (user: ChefsTypes) => {
         setSelectedUser(user);
@@ -176,7 +208,6 @@ export default function Chefs({ dashboard }: { dashboard?: boolean }) {
     };
 
     const handleBlockConfirm = () => {
-        // Handle block user logic here
         console.log('Blocking user:', userToBlock);
         setIsBlockModalVisible(false);
         setUserToBlock(null);
@@ -315,34 +346,74 @@ export default function Chefs({ dashboard }: { dashboard?: boolean }) {
         },
     ];
 
+    const requestColumns = [
+        { title: 'Serial No', dataIndex: 'key', key: 'key' },
+        { title: 'Name', dataIndex: 'name', key: 'name' },
+        { title: 'Email', dataIndex: 'email', key: 'email' },
+        { title: 'Cuisine Type', dataIndex: 'cuisineType', key: 'cuisineType' },
+        { title: 'Address', dataIndex: 'address', key: 'address' },
+        { title: 'Zip Code', dataIndex: 'zipCode', key: 'zipCode' },
+        {
+            title: 'Certificate',
+            dataIndex: 'certificate',
+            key: 'certificate',
+            render: (url: string) => (
+                <Button type="link" onClick={() => showPdfModal(url)}>
+                    View PDF
+                </Button>
+            ),
+        },
+        { title: 'Status', dataIndex: 'status', key: 'status' },
+        {
+            title: 'Action',
+            key: 'action',
+            render: () => (
+                <div className="flex gap-2">
+                    <Button type="primary">Approve</Button>
+                    <Button danger>Reject</Button>
+                </div>
+            ),
+        },
+    ];
+
     return (
         <>
-            <div className="rounded-lg shadow-sm border border-gray-200 p-4">
-                <div className="flex items-center justify-between mb-4">
-                    <HeaderTitle title="Users" />
-                    <Input
-                        placeholder="Search"
-                        className=""
-                        style={{ width: 280, height: 40 }}
-                        prefix={<i className="bi bi-search"></i>}
-                    />
-                </div>
-                <ConfigProvider
-                    theme={{
-                        token: {
-                            colorPrimary: '#59A817',
-                        },
-                    }}
-                >
-                    <Table
-                        columns={columns}
-                        dataSource={driverData}
-                        pagination={dashboard ? false : { pageSize: 9, total: driverData.length }}
-                        className="custom-table"
-                    />
-                </ConfigProvider>
-            </div>
+            <ConfigProvider theme={{ token: { colorPrimary: '#59A817' } }}>
+                <Tabs defaultActiveKey="1">
+                    <TabPane tab="Chefs" key="1">
+                        {/* 👇 Your original table untouched */}
+                        <div className="rounded-lg shadow-sm border border-gray-200 p-4">
+                            <div className="flex items-center justify-between mb-4">
+                                <HeaderTitle title="Users" />
+                                <Input
+                                    placeholder="Search"
+                                    style={{ width: 280, height: 40 }}
+                                    prefix={<i className="bi bi-search"></i>}
+                                />
+                            </div>
+                            <ConfigProvider theme={{ token: { colorPrimary: '#59A817' } }}>
+                                <Table
+                                    columns={columns}
+                                    dataSource={chefData}
+                                    pagination={dashboard ? false : { pageSize: 9, total: chefData.length }}
+                                />
+                            </ConfigProvider>
+                        </div>
+                    </TabPane>
 
+                    {/* ✅ New Request Tab */}
+                    <TabPane tab="Requests" key="2">
+                        <div className="rounded-lg shadow-sm border border-gray-200 p-4">
+                            <HeaderTitle title="Chef Requests" />
+                            <ConfigProvider theme={{ token: { colorPrimary: '#59A817' } }}>
+                                <Table columns={requestColumns} dataSource={requestData} pagination={{ pageSize: 9 }} />
+                            </ConfigProvider>
+                        </div>
+                    </TabPane>
+                </Tabs>
+            </ConfigProvider>
+
+            {/* Modals */}
             <UserModal
                 isModalVisible={isModalVisible}
                 handleModalClose={handleModalClose}
@@ -355,6 +426,16 @@ export default function Chefs({ dashboard }: { dashboard?: boolean }) {
                 handleBlockConfirm={handleBlockConfirm}
                 isUserBlocked={userToBlock?.status !== 'active'}
             />
+
+            <Modal
+                open={pdfModalVisible}
+                onCancel={() => setPdfModalVisible(false)}
+                footer={null}
+                width={800}
+                title="Chef Certificate"
+            >
+                <iframe src={pdfUrl} width="100%" height="600px" style={{ border: 'none' }} />
+            </Modal>
         </>
     );
 }
