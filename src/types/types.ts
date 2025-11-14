@@ -208,3 +208,20 @@ export interface TransactionTypes {
     revenue: string;
     deliveryStatus: 'Approved' | 'Pending' | 'Rejected';
 }
+
+export type StatusType = 'active' | 'inactive';
+export type ActiveTab = 'region' | 'city';
+
+export type RegionType = {
+    key: string;
+    regionName: string;
+    totalCity: number;
+    status: StatusType;
+};
+
+export type CityType = {
+    key: string;
+    regionName: string;
+    cityName: string;
+    status: StatusType;
+};

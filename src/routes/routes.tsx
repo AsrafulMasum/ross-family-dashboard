@@ -23,6 +23,7 @@ import Category from '../pages/dashboard/category';
 import Reviews from '../pages/dashboard/reviews';
 import Refund from '../pages/dashboard/refund';
 import Transactions from '../pages/dashboard/transactions';
+import ControlPublish from '../pages/dashboard/control-publish';
 
 const router = createBrowserRouter([
     {
@@ -31,23 +32,24 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
             { path: '', element: <Dashboard /> },
+            { path: 'control-publish', element: <ControlPublish /> },
             { path: 'orders', element: <Orders /> },
             { path: 'categories', element: <Category /> },
             { path: 'waiting-list', element: <WaitingList /> },
-            { path: "chefs", element: <Chefs /> },
-            { path: "users", element: <Users /> },
-            { path: "drivers", element: <Drivers /> },
-            { path: "reviews", element: <Reviews /> },
-            { path: "transactions", element: <Transactions /> },
-            { path: "refund-requests", element: <Refund /> },
-            { path: "package", element: <Packages /> },
+            { path: 'chefs', element: <Chefs /> },
+            { path: 'users', element: <Users /> },
+            { path: 'drivers', element: <Drivers /> },
+            { path: 'reviews', element: <Reviews /> },
+            { path: 'transactions', element: <Transactions /> },
+            { path: 'refund-requests', element: <Refund /> },
+            { path: 'package', element: <Packages /> },
             { path: 'profile', element: <Profile /> },
             { path: 'notification', element: <Notification /> },
-            { path: "privacy-policy", element: <PrivacyPolicy /> },
-            { path: "terms-and-condition", element: <TermsAndCondition /> },
-            { path: "about-us", element: <AboutUs /> },
-            { path: "disclaimer", element: <Disclaimer /> },
-            { path: "faq", element: <FAQPage /> },
+            { path: 'privacy-policy', element: <PrivacyPolicy /> },
+            { path: 'terms-and-condition', element: <TermsAndCondition /> },
+            { path: 'about-us', element: <AboutUs /> },
+            { path: 'disclaimer', element: <Disclaimer /> },
+            { path: 'faq', element: <FAQPage /> },
         ],
     },
     { path: '/login', element: <Login /> },
