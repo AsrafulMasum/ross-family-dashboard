@@ -145,15 +145,18 @@ export interface DriverTypes {
 }
 
 export interface ChefsTypes {
-    serialId: string;
-    userName: string;
+    serialId?: string;
+    userName?: string;
+    name?: string;
     email: string;
     address: string;
-    city: string;
-    createdAt: string;
-    totalOrder: number;
-    revenue: number;
+    city?: string;
+    createdAt?: string;
+    totalOrder?: number;
+    revenue?: number;
     status: string;
+    cuisineType?: string;
+    certificate?: string;
 }
 
 export interface CategoryTypes {

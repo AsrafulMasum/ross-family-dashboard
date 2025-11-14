@@ -179,6 +179,12 @@ const requestData = [
     },
 ];
 
+const statusColorMap = {
+    Pending: { color: '#D48806', bg: '#F7F1CC' },
+    Rejected: { color: '#FF4D4F', bg: '#FFD8D7' },
+    Approved: { color: '#52C41A', bg: '#D9F2CD' },
+};
+
 export default function Chefs({ dashboard }: { dashboard?: boolean }) {
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
     const [selectedUser, setSelectedUser] = useState<ChefsTypes | null>(null);
@@ -363,7 +369,33 @@ export default function Chefs({ dashboard }: { dashboard?: boolean }) {
                 </Button>
             ),
         },
-        { title: 'Status', dataIndex: 'status', key: 'status' },
+        {
+            title: 'Status',
+            dataIndex: 'status',
+            key: 'status',
+            render: (status: ChefsTypes['status'], record: ChefsTypes) => {
+                const key = status as keyof typeof statusColorMap;
+                const currentStyle =
+                    status in statusColorMap
+                        ? statusColorMap[key]
+                        : {
+                              color: '#595959',
+                              bg: '#FAFAFA',
+                          };
+
+                return (
+                    <p
+                        className="capitalize px-1 py-0.5 text-center rounded-lg"
+                        style={{
+                            color: currentStyle.color,
+                            backgroundColor: currentStyle.bg,
+                        }}
+                    >
+                        {record?.status}
+                    </p>
+                );
+            },
+        },
         {
             title: 'Action',
             key: 'action',

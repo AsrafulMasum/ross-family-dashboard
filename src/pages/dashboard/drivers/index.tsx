@@ -98,6 +98,12 @@ const driverRequests = [
     },
 ];
 
+const statusColorMap = {
+    Pending: { color: '#D48806', bg: '#F7F1CC' },
+    Rejected: { color: '#FF4D4F', bg: '#FFD8D7' },
+    Approved: { color: '#52C41A', bg: '#D9F2CD' },
+};
+
 export default function Drivers({ dashboard }: { dashboard?: boolean }) {
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
     const [selectedUser, setSelectedUser] = useState<DriverTypes | null>(null);
@@ -130,7 +136,7 @@ export default function Drivers({ dashboard }: { dashboard?: boolean }) {
         setUserToBlock(null);
     };
 
-    // 🧱 Existing columns unchanged
+    // Existing columns unchanged
     const columns = [
         {
             title: 'Serial ID',
@@ -248,6 +254,150 @@ export default function Drivers({ dashboard }: { dashboard?: boolean }) {
         },
     ];
 
+    const requestColumns = [
+        {
+            title: 'Serial ID',
+            dataIndex: 'serialId',
+            key: 'serialId',
+            responsive: ['sm'] as any,
+        },
+        {
+            title: 'Name',
+            dataIndex: 'userName',
+            key: 'userName',
+        },
+        {
+            title: 'Email',
+            dataIndex: 'email',
+            key: 'email',
+            responsive: ['md'] as any,
+        },
+        {
+            title: 'Address',
+            dataIndex: 'address',
+            key: 'address',
+            responsive: ['lg'] as any,
+        },
+        {
+            title: 'City',
+            dataIndex: 'city',
+            key: 'city',
+            responsive: ['lg'] as any,
+            filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }: any) => (
+                <div style={{ padding: 8 }}>
+                    <Select
+                        placeholder="Select a Canadian city"
+                        value={selectedKeys?.[0] ?? undefined}
+                        style={{ width: 200 }}
+                        onChange={(value) => {
+                            setSelectedKeys?.(value ? [value] : []);
+                            confirm?.();
+                        }}
+                        allowClear
+                        showSearch
+                        filterOption={(input, option) =>
+                            (option?.children as unknown as string).toLowerCase().includes(input.toLowerCase())
+                        }
+                    >
+                        {canadianCities?.map((city) => (
+                            <Option key={city} value={city}>
+                                {city}
+                            </Option>
+                        ))}
+                    </Select>
+                    <div style={{ marginTop: 8 }}>
+                        <a
+                            onClick={() => {
+                                clearFilters?.();
+                                confirm?.();
+                            }}
+                            style={{ width: 90, marginRight: 8 }}
+                        >
+                            Reset
+                        </a>
+                    </div>
+                </div>
+            ),
+            onFilter: (value: boolean | React.Key, record: DriverTypes) => record.city === value,
+            render: (city: string) => city,
+        },
+        {
+            title: 'Vehicle Type',
+            dataIndex: 'vehicleType',
+            key: 'vehicleType',
+            responsive: ['sm'] as any,
+        },
+        {
+            title: 'License No.',
+            dataIndex: 'licenseNo',
+            key: 'licenseNo',
+            responsive: ['sm'] as any,
+        },
+        {
+            title: 'Uploaded Files',
+            dataIndex: 'files',
+            key: 'files',
+            responsive: ['sm'] as any,
+        },
+        {
+            title: 'Status',
+            dataIndex: 'status',
+            key: 'status',
+            render: (status: DriverTypes['status'], record: DriverTypes) => {
+                const key = status as keyof typeof statusColorMap;
+                const currentStyle =
+                    status in statusColorMap
+                        ? statusColorMap[key]
+                        : {
+                              color: '#595959',
+                              bg: '#FAFAFA',
+                          };
+
+                return (
+                    <p
+                        className="capitalize px-1 py-0.5 text-center rounded-lg"
+                        style={{
+                            color: currentStyle.color,
+                            backgroundColor: currentStyle.bg,
+                        }}
+                    >
+                        {record?.status}
+                    </p>
+                );
+            },
+        },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (_: any, record: DriverTypes) => (
+                <div className="flex gap-2">
+                    <Button
+                        type="text"
+                        icon={<CiCircleInfo size={24} />}
+                        className="text-gray-500 hover:text-primary"
+                        onClick={() => showUserDetails(record)}
+                    />
+                    <Button
+                        type="text"
+                        icon={record?.status == 'active' ? <CiLock size={24} /> : <CiUnlock size={24} />}
+                        className={
+                            record?.status == 'active'
+                                ? 'text-gray-500 hover:!text-red-500'
+                                : 'hover:!text-gray-500 !text-red-500'
+                        }
+                        onClick={() => showBlockModal(record)}
+                    />
+                    <Button
+                        type="text"
+                        icon={<MdOutlineDeleteOutline size={24} />}
+                        className={'text-red-400 hover:!text-red-500'}
+                        onClick={() => showBlockModal(record)}
+                    />
+                </div>
+            ),
+        },
+    ];
+
     return (
         <>
             <div className="rounded-lg shadow-sm border border-gray-200 p-4">
@@ -297,14 +447,7 @@ export default function Drivers({ dashboard }: { dashboard?: boolean }) {
                                 }}
                             >
                                 <Table<any>
-                                    columns={[
-                                        ...columns,
-                                        {
-                                            title: 'Status',
-                                            dataIndex: 'status',
-                                            key: 'status',
-                                        },
-                                    ]}
+                                    columns={requestColumns}
                                     dataSource={driverRequests}
                                     pagination={{
                                         pageSize: 9,
