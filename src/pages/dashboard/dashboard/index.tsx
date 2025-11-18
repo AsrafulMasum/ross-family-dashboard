@@ -6,6 +6,7 @@ import { LucideChartSpline } from 'lucide-react';
 import { PiChefHat, PiSteeringWheelLight } from 'react-icons/pi';
 import TotalSales from './TotalSales';
 import TopOrders from './TopOrders';
+import ReviewCards from './Reviews';
 
 const App: React.FC = () => {
     const StatCard: React.FC<{ icon: React.ReactNode; title: string; value: string }> = ({ icon, title, value }) => (
@@ -42,6 +43,7 @@ const App: React.FC = () => {
                     <TotalSales />
                 </div>
                 <TopOrders dashboard={true} />
+                <ReviewCards />
             </div>
         </div>
     );

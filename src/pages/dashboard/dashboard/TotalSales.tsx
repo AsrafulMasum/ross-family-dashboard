@@ -86,7 +86,7 @@ const TotalSales = () => {
                 <ResponsiveContainer width="100%" height={230}>
                     <AreaChart data={earningsData}>
                         <defs>
-                            <linearGradient id="colorEarnings" x1="0" y1="0" x2="0" y2="1">
+                            <linearGradient id="colorOfEarnings" x1="0" y1="0" x2="0" y2="1">
                                 <stop offset="5%" stopColor="#3CC3DF" stopOpacity={0.4} />
                                 <stop offset="95%" stopColor="#3CC3DF" stopOpacity={0} />
                             </linearGradient>
@@ -126,7 +126,7 @@ const TotalSales = () => {
                             stroke="#3CC3DF"
                             strokeWidth={2}
                             fillOpacity={1}
-                            fill="url(#colorEarnings)"
+                            fill="url(#colorOfEarnings)"
                             activeDot={{ r: 6 }}
                             dot={{ fill: '#3CC3DF', r: 4 }}
                         />

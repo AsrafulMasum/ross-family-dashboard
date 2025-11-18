@@ -1,6 +1,5 @@
 import { Button, ConfigProvider, Table } from 'antd';
 import type { ColumnType } from 'antd/es/table/interface';
-import HeaderTitle from '../../../components/shared/HeaderTitle';
 import { Order } from '../../../types/types';
 import { CiCircleInfo } from 'react-icons/ci';
 import { useState } from 'react';
@@ -48,7 +47,7 @@ const data: Order[] = [
         price: 150,
         revenue: 1050,
         orderData: '2025-11-03',
-        deliveryStatus: 'delivered',
+        deliveryStatus: 'completed',
         status: 'inactive',
         productImage: 'https://images.unsplash.com/photo-1605478571962-9b8d2b8e8f5a?w=500&auto=format&fit=crop&q=80',
     },
@@ -107,11 +106,23 @@ export default function TopOrders({ dashboard }: { dashboard?: boolean }) {
             title: 'Customer Name',
             dataIndex: 'customerName',
             key: 'customerName',
+            render: (text: string) => (
+                <div className="flex items-center gap-2">
+                    <img className="w-8" src="/user.svg" alt="Customer Image" />
+                    <p>{text}</p>
+                </div>
+            ),
         },
         {
             title: 'Chef Name',
             dataIndex: 'chefName',
             key: 'chefName',
+            render: (text: string) => (
+                <div className="flex items-center gap-2">
+                    <img className="w-8" src="/user.svg" alt="Customer Image" />
+                    <p>{text}</p>
+                </div>
+            ),
         },
         {
             title: 'Item count',
@@ -184,21 +195,7 @@ export default function TopOrders({ dashboard }: { dashboard?: boolean }) {
         <>
             <div className="rounded-lg shadow-sm border border-gray-200 p-4 mb-4">
                 <div className="flex items-center justify-between mb-4">
-                    <HeaderTitle title="Orders" />
-                    {/* <ConfigProvider
-                        theme={{
-                            token: {
-                                colorPrimary: '#59A817',
-                            },
-                        }}
-                    >
-                        <Input
-                            placeholder="Search"
-                            className=""
-                            style={{ width: 280, height: 40 }}
-                            prefix={<i className="bi bi-search"></i>}
-                        />
-                    </ConfigProvider> */}
+                    <h2 className="text-lg font-semibold">Deals Details </h2>
                 </div>
                 <ConfigProvider
                     theme={{
