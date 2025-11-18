@@ -38,18 +38,14 @@ const CustomLegend = () => {
     return (
         <div className="flex justify-center gap-2 2xl:gap-4 text-sm text-[#757575]">
             <div className="flex items-center gap-1 whitespace-nowrap">
-                <div className="w-3 h-3 bg-[#8979FF] rounded-full" />
-                2024
-            </div>
-            <div className="flex items-center gap-1 whitespace-nowrap">
-                <div className="w-3 h-3 bg-[#FF928A] rounded-full" />
-                2025
+                <div className="w-3 h-3 bg-[#3CC3DF] rounded-full" />
+                Sales
             </div>
         </div>
     );
 };
 
-const TotalEarning = () => {
+const TotalSales = () => {
     const [selectedYear, setSelectedYear] = useState('2025');
     const [selectedCity, setSelectedCity] = useState('Toronto');
     const [selectedMonth, setSelectedMonth] = useState('Monthly');
@@ -58,7 +54,7 @@ const TotalEarning = () => {
         <div>
             <Card className="rounded-lg shadow-sm border border-gray-200">
                 <div className="flex justify-between items-center mb-4 gap-4">
-                    <h2 className="text-lg font-semibold">Total Revenue</h2>
+                    <h2 className="text-lg font-semibold">Total Sales</h2>
                     <div className="flex gap-2">
                         {/* City Dropdown */}
                         <Select value={selectedCity} onChange={setSelectedCity} className="w-36">
@@ -91,16 +87,28 @@ const TotalEarning = () => {
                     <AreaChart data={earningsData}>
                         <defs>
                             <linearGradient id="colorEarnings" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="#8979FF" stopOpacity={0.4} />
-                                <stop offset="95%" stopColor="#8979FF" stopOpacity={0} />
-                            </linearGradient>
-                            <linearGradient id="colorEarnings2" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="#FF928A" stopOpacity={0.4} />
-                                <stop offset="95%" stopColor="#FF928A" stopOpacity={0} />
+                                <stop offset="5%" stopColor="#3CC3DF" stopOpacity={0.4} />
+                                <stop offset="95%" stopColor="#3CC3DF" stopOpacity={0} />
                             </linearGradient>
                         </defs>
                         <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                        <XAxis dataKey="month" stroke="#999" style={{ fontSize: '12px' }} />
+                        {/* <XAxis dataKey="month" stroke="#999" style={{ fontSize: '12px' }} /> */}
+                        {/* <XAxis
+                            dataKey="month"
+                            tickLine={false}
+                            axisLine={false}
+                            tickMargin={8}
+                            tickFormatter={(value) => value.slice(0, 3)}
+                        /> */}
+                        <XAxis
+                            dataKey="month"
+                            stroke="#999"
+                            style={{ fontSize: '12px' }}
+                            tickLine={false}
+                            axisLine={false}
+                            tickMargin={8}
+                            tickFormatter={(value) => value.slice(0, 3)}
+                        />
                         <YAxis stroke="#999" style={{ fontSize: '12px' }} tickFormatter={(value) => `${value}`} />
                         <Tooltip
                             formatter={(value) => `$${value}`}
@@ -113,24 +121,14 @@ const TotalEarning = () => {
                             labelStyle={{ color: '#c61f1f' }}
                         />
                         <Area
-                            type="monotone"
+                            type="linear"
                             dataKey="value"
-                            stroke="#8979FF"
+                            stroke="#3CC3DF"
                             strokeWidth={2}
                             fillOpacity={1}
                             fill="url(#colorEarnings)"
                             activeDot={{ r: 6 }}
-                            // dot={{ fill: '#8979FF', r: 4 }}
-                        />
-                        <Area
-                            type="monotone"
-                            dataKey="value2"
-                            stroke="#FF928A"
-                            strokeWidth={2}
-                            fillOpacity={1}
-                            fill="url(#colorEarnings2)"
-                            activeDot={{ r: 6 }}
-                            // dot={{ fill: '#FF928A', r: 4 }}
+                            dot={{ fill: '#3CC3DF', r: 4 }}
                         />
                     </AreaChart>
                 </ResponsiveContainer>
@@ -140,4 +138,4 @@ const TotalEarning = () => {
     );
 };
 
-export default TotalEarning;
+export default TotalSales;

@@ -4,6 +4,8 @@ import TotalUserChart from './TotalUserChart';
 import { TbUsers } from 'react-icons/tb';
 import { LucideChartSpline } from 'lucide-react';
 import { PiChefHat, PiSteeringWheelLight } from 'react-icons/pi';
+import TotalSales from './TotalSales';
+import TopOrders from './TopOrders';
 
 const App: React.FC = () => {
     const StatCard: React.FC<{ icon: React.ReactNode; title: string; value: string }> = ({ icon, title, value }) => (
@@ -33,8 +35,13 @@ const App: React.FC = () => {
 
                 {/* Users */}
                 <TotalUserChart />
-                {/* Chart */}
-                <TotalEarning />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    {/* Revenue Chart */}
+                    <TotalEarning />
+                    {/* Sales Chart */}
+                    <TotalSales />
+                </div>
+                <TopOrders dashboard={true} />
             </div>
         </div>
     );

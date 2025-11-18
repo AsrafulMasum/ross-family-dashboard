@@ -18,6 +18,25 @@ const canadianCities = [
     'Victoria',
 ];
 
+const CustomLegend = () => {
+    return (
+        <div className="flex gap-2 2xl:gap-4 text-sm text-[#757575] pr-4">
+            <div className="flex items-center gap-1 whitespace-nowrap">
+                <div className="w-3 h-3 bg-[#8979FF] rounded-full" />
+                Chefs
+            </div>
+            <div className="flex items-center gap-1 whitespace-nowrap">
+                <div className="w-3 h-3 bg-[#FF928A] rounded-full" />
+                Customers
+            </div>
+            <div className="flex items-center gap-1 whitespace-nowrap">
+                <div className="w-3 h-3 bg-[#3CC3DF] rounded-full" />
+                Drivers
+            </div>
+        </div>
+    );
+};
+
 const TotalUserChart = () => {
     const [selectedYear, setSelectedYear] = useState('2025');
     const [selectedCity, setSelectedCity] = useState('Toronto');
@@ -28,6 +47,8 @@ const TotalUserChart = () => {
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-lg font-semibold">Total Users</h2>
                     <div className="flex gap-2">
+                        <CustomLegend />
+
                         {/* City Dropdown */}
                         <Select value={selectedCity} onChange={setSelectedCity} className="w-40">
                             {canadianCities.map((city) => (

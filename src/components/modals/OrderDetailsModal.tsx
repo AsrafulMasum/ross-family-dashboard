@@ -49,7 +49,7 @@ const OrderDetailsModal = ({
                                 );
                             })()}
                         </div>
-                        <p className="text-lg"> Chef Name : {showOrderDetails?.chefName}</p>
+                        <p className="text-lg font-medium"> Chef Name : {showOrderDetails?.chefName}</p>
                         <div className="flex items-center gap-4 mt-1 text-[#5C5C5C]">
                             <IoCalendarOutline className="text-2xl" />
                             <p className="text-lg"> {showOrderDetails?.orderData}</p>
