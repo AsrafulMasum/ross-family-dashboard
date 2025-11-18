@@ -9,7 +9,7 @@ import { GiSandsOfTime } from 'react-icons/gi';
 import { BiUser } from 'react-icons/bi';
 import { CiCreditCard1, CiSettings, CiStar } from 'react-icons/ci';
 import { RiRefund2Fill } from 'react-icons/ri';
-import { IoCloudUploadOutline } from 'react-icons/io5';
+import { IoChatbubblesOutline, IoCloudUploadOutline } from 'react-icons/io5';
 
 const sidebarItems: TSidebarItem[] = [
     {
@@ -29,6 +29,12 @@ const sidebarItems: TSidebarItem[] = [
         label: 'Orders',
         path: 'orders',
         icon: <HiOutlineClipboardDocumentList size={24} />,
+    },
+    {
+        key: 'chats',
+        label: 'Messages',
+        path: 'chats',
+        icon: <IoChatbubblesOutline size={24} />,
     },
     {
         key: 'categories',

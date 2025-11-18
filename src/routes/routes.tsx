@@ -24,6 +24,7 @@ import Reviews from '../pages/dashboard/reviews';
 import Refund from '../pages/dashboard/refund';
 import Transactions from '../pages/dashboard/transactions';
 import ControlPublish from '../pages/dashboard/control-publish';
+import Chats from '../pages/dashboard/chats';
 
 const router = createBrowserRouter([
     {
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
         children: [
             { path: '', element: <Dashboard /> },
             { path: 'control-publish', element: <ControlPublish /> },
+            { path: 'chats', element: <Chats /> },
             { path: 'orders', element: <Orders /> },
             { path: 'categories', element: <Category /> },
             { path: 'waiting-list', element: <WaitingList /> },

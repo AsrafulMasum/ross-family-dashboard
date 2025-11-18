@@ -1,5 +1,3 @@
-'use client';
-
 import { Modal, Form, Input, Select, ConfigProvider } from 'antd';
 
 const { Option } = Select;
