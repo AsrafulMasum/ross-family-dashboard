@@ -70,7 +70,7 @@ const userData: DriverTypes[] = [
     // ... (rest of your data remains unchanged)
 ];
 
-// ✅ New dummy request data
+// New dummy request data
 const driverRequests = [
     {
         key: '1',
@@ -369,30 +369,10 @@ export default function Drivers({ dashboard }: { dashboard?: boolean }) {
         {
             title: 'Action',
             key: 'action',
-            render: (_: any, record: DriverTypes) => (
+            render: () => (
                 <div className="flex gap-2">
-                    <Button
-                        type="text"
-                        icon={<CiCircleInfo size={24} />}
-                        className="text-gray-500 hover:text-primary"
-                        onClick={() => showUserDetails(record)}
-                    />
-                    <Button
-                        type="text"
-                        icon={record?.status == 'active' ? <CiLock size={24} /> : <CiUnlock size={24} />}
-                        className={
-                            record?.status == 'active'
-                                ? 'text-gray-500 hover:!text-red-500'
-                                : 'hover:!text-gray-500 !text-red-500'
-                        }
-                        onClick={() => showBlockModal(record)}
-                    />
-                    <Button
-                        type="text"
-                        icon={<MdOutlineDeleteOutline size={24} />}
-                        className={'text-red-400 hover:!text-red-500'}
-                        onClick={() => showBlockModal(record)}
-                    />
+                    <Button type="primary">Approve</Button>
+                    <Button danger>Reject</Button>
                 </div>
             ),
         },
