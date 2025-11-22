@@ -3,9 +3,9 @@ import { useState } from 'react';
 import HeaderTitle from '../../../components/shared/HeaderTitle';
 import { CiCircleInfo, CiLock, CiUnlock } from 'react-icons/ci';
 import { MdOutlineDeleteOutline } from 'react-icons/md';
-import UserModal from '../users/UserModal';
 import BlockModal from '../users/BlockModal';
 import { ChefsTypes } from '../../../types/types';
+import ChefDetailsModal from '../../../components/modals/ChefDetailsModal';
 
 const { Option } = Select;
 const { TabPane } = Tabs;
@@ -42,116 +42,60 @@ const canadianCities = [
     'Austin',
 ];
 
-const chefData = [
+const chefData: ChefsTypes[] = [
     {
-        serialId: 'DRV-001',
-        userName: 'James Anderson',
+        id: 1,
+        name: 'James Anderson',
+        username: 'jamesanderson',
+        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=jamesanderson',
         email: 'james.anderson@example.com',
+        country: 'Canada',
         address: '123 Maple Street',
+        zip: 'M5V 3A8',
+        region: 'Ontario',
         city: 'Toronto',
-        createdAt: '2025-01-15',
-        totalOrder: 120,
-        revenue: 5400,
-        status: 'active',
+        cuisineType: 'Italian, French, American',
+        certificateFile: '/certificate.pdf',
+        verified: true,
+        registrationDate: '2023-02-14',
+        totalOrder: 128,
+        revenue: 45230.5,
     },
     {
-        serialId: 'DRV-002',
-        userName: 'Sophia Turner',
+        id: 2,
+        name: 'Sophia Turner',
+        username: 'sophiaturner',
+        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sophiaturner',
         email: 'sophia.turner@example.com',
+        country: 'Canada',
         address: '78 Wellington Ave',
+        zip: 'V6B 2R3',
+        region: 'British Columbia',
         city: 'Vancouver',
-        createdAt: '2025-02-10',
-        totalOrder: 87,
-        revenue: 3600,
-        status: 'inactive',
+        cuisineType: 'French, Mediterranean, Asian',
+        certificateFile: '/certificate.pdf',
+        verified: true,
+        registrationDate: '2022-11-03',
+        totalOrder: 94,
+        revenue: 38910.0,
     },
     {
-        serialId: 'DRV-003',
-        userName: 'Liam Brown',
+        id: 3,
+        name: 'Liam Brown',
+        username: 'liambrown',
+        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=liambrown',
         email: 'liam.brown@example.com',
+        country: 'Canada',
         address: '45 Elm Road',
+        zip: 'T2P 2G8',
+        region: 'Alberta',
         city: 'Calgary',
-        createdAt: '2025-03-05',
-        totalOrder: 142,
-        revenue: 7100,
-        status: 'active',
-    },
-    {
-        serialId: 'DRV-004',
-        userName: 'Olivia Wilson',
-        email: 'olivia.wilson@example.com',
-        address: '256 King Street West',
-        city: 'Ottawa',
-        createdAt: '2025-04-12',
-        totalOrder: 75,
-        revenue: 2900,
-        status: 'inactive',
-    },
-    {
-        serialId: 'DRV-005',
-        userName: 'Noah Smith',
-        email: 'noah.smith@example.com',
-        address: '98 Queen Street',
-        city: 'Montreal',
-        createdAt: '2025-05-20',
-        totalOrder: 102,
-        revenue: 4700,
-        status: 'active',
-    },
-    {
-        serialId: 'DRV-006',
-        userName: 'Emma Johnson',
-        email: 'emma.johnson@example.com',
-        address: '12 Pine Avenue',
-        city: 'Edmonton',
-        createdAt: '2025-06-08',
-        totalOrder: 91,
-        revenue: 4100,
-        status: 'active',
-    },
-    {
-        serialId: 'DRV-007',
-        userName: 'William Davis',
-        email: 'william.davis@example.com',
-        address: '77 Spruce Street',
-        city: 'Winnipeg',
-        createdAt: '2025-07-01',
-        totalOrder: 134,
-        revenue: 6200,
-        status: 'inactive',
-    },
-    {
-        serialId: 'DRV-008',
-        userName: 'Ava Martinez',
-        email: 'ava.martinez@example.com',
-        address: '31 Birch Road',
-        city: 'Halifax',
-        createdAt: '2025-07-22',
-        totalOrder: 66,
-        revenue: 2700,
-        status: 'active',
-    },
-    {
-        serialId: 'DRV-009',
-        userName: 'Lucas Garcia',
-        email: 'lucas.garcia@example.com',
-        address: '90 King Edward Blvd',
-        city: 'Quebec City',
-        createdAt: '2025-08-11',
-        totalOrder: 110,
-        revenue: 4800,
-        status: 'inactive',
-    },
-    {
-        serialId: 'DRV-010',
-        userName: 'Mia Rodriguez',
-        email: 'mia.rodriguez@example.com',
-        address: '54 Richmond Street',
-        city: 'Regina',
-        createdAt: '2025-09-02',
-        totalOrder: 99,
-        revenue: 3900,
-        status: 'active',
+        cuisineType: 'Italian, Spanish, Mexican',
+        certificateFile: '/certificate.pdf',
+        verified: true,
+        registrationDate: '2023-05-27',
+        totalOrder: 143,
+        revenue: 50120.75,
     },
 ];
 
@@ -227,14 +171,14 @@ export default function Chefs({ dashboard }: { dashboard?: boolean }) {
     const columns = [
         {
             title: 'Serial ID',
-            dataIndex: 'serialId',
-            key: 'serialId',
+            dataIndex: 'id',
+            key: 'id',
             responsive: ['sm'] as any,
         },
         {
             title: 'Name',
-            dataIndex: 'userName',
-            key: 'userName',
+            dataIndex: 'name',
+            key: 'name',
         },
         {
             title: 'Email',
@@ -303,8 +247,8 @@ export default function Chefs({ dashboard }: { dashboard?: boolean }) {
         },
         {
             title: 'Registration Date',
-            dataIndex: 'createdAt',
-            key: 'createdAt',
+            dataIndex: 'registrationDate',
+            key: 'registrationDate',
             responsive: ['sm'] as any,
         },
         {
@@ -376,7 +320,7 @@ export default function Chefs({ dashboard }: { dashboard?: boolean }) {
             render: (status: ChefsTypes['status'], record: ChefsTypes) => {
                 const key = status as keyof typeof statusColorMap;
                 const currentStyle =
-                    status in statusColorMap
+                    status && status in statusColorMap
                         ? statusColorMap[key]
                         : {
                               color: '#595959',
@@ -446,11 +390,7 @@ export default function Chefs({ dashboard }: { dashboard?: boolean }) {
             </ConfigProvider>
 
             {/* Modals */}
-            <UserModal
-                isModalVisible={isModalVisible}
-                handleModalClose={handleModalClose}
-                selectedUser={selectedUser}
-            />
+            <ChefDetailsModal open={isModalVisible} onCancel={handleModalClose} selectedUser={selectedUser} />
 
             <BlockModal
                 isBlockModalVisible={isBlockModalVisible}
