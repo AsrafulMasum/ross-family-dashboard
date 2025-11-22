@@ -4,6 +4,7 @@ import type { ColumnType } from 'antd/es/table/interface';
 import HeaderTitle from '../../../components/shared/HeaderTitle';
 import { TransactionTypes } from '../../../types/types';
 import { CiCircleInfo } from 'react-icons/ci';
+import TransactionDetailsModal from '../../../components/modals/TransactionDetailsModal';
 
 const { Option } = Select;
 
@@ -417,6 +418,13 @@ const driverTransactions: TransactionTypes[] = [
 
 export default function Transactions({ dashboard }: { dashboard?: boolean }) {
     const [activeTab, setActiveTab] = useState<'chef' | 'customer' | 'driver'>('chef');
+    const [selectedTransaction, setSelectedTransaction] = useState<TransactionTypes | null>(null);
+    const [open, setOpen] = useState(false);
+
+    const handleModalClose = () => {
+        setSelectedTransaction(null);
+        setOpen(false);
+    };
 
     const columns: ColumnType<TransactionTypes>[] = [
         {
@@ -508,9 +516,13 @@ export default function Transactions({ dashboard }: { dashboard?: boolean }) {
         {
             title: 'Action',
             key: 'action',
-            render: () => (
+            render: (_, record) => (
                 <div className="flex gap-2">
                     <Button
+                        onClick={() => {
+                            setOpen(true);
+                            setSelectedTransaction(record);
+                        }}
                         type="text"
                         icon={<CiCircleInfo size={24} />}
                         className="text-gray-500 hover:text-blue-500"
@@ -585,6 +597,13 @@ export default function Transactions({ dashboard }: { dashboard?: boolean }) {
                     ]}
                 />
             </ConfigProvider>
+
+            <TransactionDetailsModal
+                open={open}
+                onClose={handleModalClose}
+                transaction={selectedTransaction}
+                activeTab={activeTab}
+            />
         </div>
     );
 }
