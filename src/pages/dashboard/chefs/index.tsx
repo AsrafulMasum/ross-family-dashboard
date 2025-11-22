@@ -386,6 +386,23 @@ export default function Chefs({ dashboard }: { dashboard?: boolean }) {
                             </ConfigProvider>
                         </div>
                     </TabPane>
+
+                    <TabPane tab="Trending" key="3">
+                        <div className="rounded-lg shadow-sm border border-gray-200 p-4">
+                            <HeaderTitle title="Trending Chefs" />
+                            <ConfigProvider theme={{ token: { colorPrimary: '#59A817' } }}>
+                                <Table
+                                    columns={columns}
+                                    dataSource={
+                                        chefData
+                                            .sort((a, b) => (b.totalOrder ?? 0) - (a.totalOrder ?? 0))
+                                            .slice(0, 5)
+                                    }
+                                    pagination={false}
+                                />
+                            </ConfigProvider>
+                        </div>
+                    </TabPane>
                 </Tabs>
             </ConfigProvider>
 
