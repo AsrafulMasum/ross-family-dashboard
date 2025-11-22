@@ -3,7 +3,7 @@ import { useState } from 'react';
 import HeaderTitle from '../../../components/shared/HeaderTitle';
 import { CiCircleInfo, CiLock, CiUnlock } from 'react-icons/ci';
 import { MdOutlineDeleteOutline } from 'react-icons/md';
-import UserModal from '../users/UserModal';
+import UserModal from '../../../components/modals/UserModal';
 import BlockModal from '../users/BlockModal';
 import { DriverTypes } from '../../../types/types';
 
@@ -441,8 +441,8 @@ export default function Drivers({ dashboard }: { dashboard?: boolean }) {
             </div>
 
             <UserModal
-                isModalVisible={isModalVisible}
-                handleModalClose={handleModalClose}
+                open={isModalVisible}
+                onCancel={handleModalClose}
                 selectedUser={selectedUser}
             />
 
