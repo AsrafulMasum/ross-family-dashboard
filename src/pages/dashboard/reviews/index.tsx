@@ -275,7 +275,7 @@ export default function Reviews({ dashboard }: { dashboard?: boolean }) {
     const [selectedCity, setSelectedCity] = useState(null);
     const [selectedReview, setSelectedReview] = useState<ReviewTypes | null>(null);
     const [showModal, setShowModal] = useState(false);
-
+    console.log(selectedCity);
     const showUserDetails = (record: ReviewTypes) => {
         setSelectedReview(record);
         setShowModal(true);

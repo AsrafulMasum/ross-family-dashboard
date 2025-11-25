@@ -129,7 +129,7 @@ export default function WaitingList({ dashboard }: { dashboard?: boolean }) {
     // const [selectedUser, setSelectedUser] = useState<User | null>(null);
     // const [isBlockModalVisible, setIsBlockModalVisible] = useState<boolean>(false);
     // const [userToBlock, setUserToBlock] = useState<User | null>(null);
-
+    console.log(selectedCity);
     // const showUserDetails = (user: User) => {
     //     setSelectedUser(user);
     //     setIsModalVisible(true);

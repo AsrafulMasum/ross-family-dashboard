@@ -110,7 +110,7 @@ export default function Drivers({ dashboard }: { dashboard?: boolean }) {
     const [selectedUser, setSelectedUser] = useState<DriverTypes | null>(null);
     const [isBlockModalVisible, setIsBlockModalVisible] = useState<boolean>(false);
     const [userToBlock, setUserToBlock] = useState<DriverTypes | null>(null);
-
+    console.log(selectedCity);
     const showUserDetails = (user: DriverTypes) => {
         setSelectedUser(user);
         setIsModalVisible(true);

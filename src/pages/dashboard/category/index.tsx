@@ -64,7 +64,7 @@ const statusColorMap = {
 export default function Category({ dashboard }: { dashboard?: boolean }) {
     const [selectedCity, setSelectedCity] = useState(null);
     const [activeTab, setActiveTab] = useState<'category' | 'subcategory'>('category');
-
+    console.log(selectedCity);
     const [categoryList, setCategoryList] = useState<CategoryTypes[]>(categoryData);
     const [subCategoryList, setSubCategoryList] = useState<CategoryTypes[]>(subCategoryData);
 

@@ -205,7 +205,7 @@ const statusColorMap = {
 export default function Orders({ dashboard }: { dashboard?: boolean }) {
     const [showOrderDetails, setShowOrderDetails] = useState<Order | null>(null);
     const [selectedCity, setSelectedCity] = useState(null);
-
+    console.log(selectedCity);
     const columns: ColumnType<Order>[] = [
         {
             title: 'Order Number',

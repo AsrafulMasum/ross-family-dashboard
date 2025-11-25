@@ -421,7 +421,7 @@ export default function Transactions({ dashboard }: { dashboard?: boolean }) {
     const [activeTab, setActiveTab] = useState<'chef' | 'customer' | 'driver'>('chef');
     const [selectedTransaction, setSelectedTransaction] = useState<TransactionTypes | null>(null);
     const [open, setOpen] = useState(false);
-
+    console.log(selectedCity);
     const handleModalClose = () => {
         setSelectedTransaction(null);
         setOpen(false);

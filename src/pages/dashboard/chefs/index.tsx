@@ -137,6 +137,7 @@ export default function Chefs({ dashboard }: { dashboard?: boolean }) {
     const [userToBlock, setUserToBlock] = useState<ChefsTypes | null>(null);
     const [pdfModalVisible, setPdfModalVisible] = useState(false);
     const [pdfUrl, setPdfUrl] = useState('');
+    console.log(selectedCity);
 
     const showPdfModal = (url: string) => {
         setPdfUrl(url);

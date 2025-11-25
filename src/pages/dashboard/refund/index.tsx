@@ -315,7 +315,7 @@ export default function Refund({ dashboard }: { dashboard?: boolean }) {
     const [selectedCity, setSelectedCity] = useState(null);
     const [selectedReview, setSelectedReview] = useState<RefundType | null>(null);
     const [showModal, setShowModal] = useState(false);
-
+    console.log(selectedCity);
     const showUserDetails = (record: RefundType) => {
         setSelectedReview(record);
         setShowModal(true);
