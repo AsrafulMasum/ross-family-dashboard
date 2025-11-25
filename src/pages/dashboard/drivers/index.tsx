@@ -105,6 +105,7 @@ const statusColorMap = {
 };
 
 export default function Drivers({ dashboard }: { dashboard?: boolean }) {
+    const [selectedCity, setSelectedCity] = useState(null);
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
     const [selectedUser, setSelectedUser] = useState<DriverTypes | null>(null);
     const [isBlockModalVisible, setIsBlockModalVisible] = useState<boolean>(false);
@@ -387,11 +388,52 @@ export default function Drivers({ dashboard }: { dashboard?: boolean }) {
                         <TabPane tab="Drivers" key="1">
                             <div className="flex items-center justify-between mb-4">
                                 <HeaderTitle title="Users" />
-                                <Input
-                                    placeholder="Search"
-                                    style={{ width: 280, height: 40 }}
-                                    prefix={<i className="bi bi-search"></i>}
-                                />
+                                <ConfigProvider theme={{ token: { colorPrimary: '#59A817' } }}>
+                                    <div className="flex justify-end gap-4 mb-4">
+                                        <Select
+                                            placeholder="City"
+                                            style={{ width: 120, height: 40 }}
+                                            allowClear
+                                            showSearch
+                                            onChange={(value) => setSelectedCity(value)}
+                                            filterOption={(input, option) =>
+                                                (String(option?.children) ?? '')
+                                                    .toLowerCase()
+                                                    .includes(input.toLowerCase())
+                                            }
+                                        >
+                                            {canadianCities?.map((city) => (
+                                                <Select.Option key={city} value={city}>
+                                                    {city}
+                                                </Select.Option>
+                                            ))}
+                                        </Select>
+                                        <Select
+                                            placeholder="Region"
+                                            style={{ width: 120, height: 40 }}
+                                            allowClear
+                                            showSearch
+                                            onChange={(value) => setSelectedCity(value)}
+                                            filterOption={(input, option) =>
+                                                (String(option?.children) ?? '')
+                                                    .toLowerCase()
+                                                    .includes(input.toLowerCase())
+                                            }
+                                        >
+                                            {canadianCities?.map((city) => (
+                                                <Select.Option key={city} value={city}>
+                                                    {city}
+                                                </Select.Option>
+                                            ))}
+                                        </Select>
+                                        <Input
+                                            placeholder="Search"
+                                            className=""
+                                            style={{ width: 280, height: 40 }}
+                                            prefix={<i className="bi bi-search"></i>}
+                                        />
+                                    </div>
+                                </ConfigProvider>
                             </div>
                             <ConfigProvider
                                 theme={{
@@ -440,11 +482,7 @@ export default function Drivers({ dashboard }: { dashboard?: boolean }) {
                 </ConfigProvider>
             </div>
 
-            <UserModal
-                open={isModalVisible}
-                onCancel={handleModalClose}
-                selectedUser={selectedUser}
-            />
+            <UserModal open={isModalVisible} onCancel={handleModalClose} selectedUser={selectedUser} />
 
             <BlockModal
                 isBlockModalVisible={isBlockModalVisible}

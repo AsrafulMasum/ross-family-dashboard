@@ -193,7 +193,6 @@ const data: Order[] = [
     },
 ];
 
-
 const statusColorMap = {
     pending: { color: '#D48806', bg: '#F7F1CC' },
     processing: { color: '#1890FF', bg: '#D9EEFF' },
@@ -205,6 +204,7 @@ const statusColorMap = {
 
 export default function Orders({ dashboard }: { dashboard?: boolean }) {
     const [showOrderDetails, setShowOrderDetails] = useState<Order | null>(null);
+    const [selectedCity, setSelectedCity] = useState(null);
 
     const columns: ColumnType<Order>[] = [
         {
@@ -355,12 +355,62 @@ export default function Orders({ dashboard }: { dashboard?: boolean }) {
                             },
                         }}
                     >
-                        <Input
-                            placeholder="Search"
-                            className=""
-                            style={{ width: 280, height: 40 }}
-                            prefix={<i className="bi bi-search"></i>}
-                        />
+                        <div className="flex justify-end gap-4 mb-4">
+                            <Select
+                                placeholder="City"
+                                style={{ width: 120, height: 40 }}
+                                allowClear
+                                showSearch
+                                onChange={(value) => setSelectedCity(value)}
+                                filterOption={(input, option) =>
+                                    (String(option?.children) ?? '').toLowerCase().includes(input.toLowerCase())
+                                }
+                            >
+                                {canadianCities?.map((city) => (
+                                    <Select.Option key={city} value={city}>
+                                        {city}
+                                    </Select.Option>
+                                ))}
+                            </Select>
+                            <Select
+                                placeholder="Region"
+                                style={{ width: 120, height: 40 }}
+                                allowClear
+                                showSearch
+                                onChange={(value) => setSelectedCity(value)}
+                                filterOption={(input, option) =>
+                                    (String(option?.children) ?? '').toLowerCase().includes(input.toLowerCase())
+                                }
+                            >
+                                {canadianCities?.map((city) => (
+                                    <Select.Option key={city} value={city}>
+                                        {city}
+                                    </Select.Option>
+                                ))}
+                            </Select>
+                            <Select
+                                placeholder="Status"
+                                style={{ width: 120, height: 40 }}
+                                allowClear
+                                showSearch
+                                onChange={(value) => setSelectedCity(value)}
+                                filterOption={(input, option) =>
+                                    (String(option?.children) ?? '').toLowerCase().includes(input.toLowerCase())
+                                }
+                            >
+                                {canadianCities?.map((city) => (
+                                    <Select.Option key={city} value={city}>
+                                        {city}
+                                    </Select.Option>
+                                ))}
+                            </Select>
+                            <Input
+                                placeholder="Search"
+                                className=""
+                                style={{ width: 280, height: 40 }}
+                                prefix={<i className="bi bi-search"></i>}
+                            />
+                        </div>
                     </ConfigProvider>
                 </div>
                 <ConfigProvider

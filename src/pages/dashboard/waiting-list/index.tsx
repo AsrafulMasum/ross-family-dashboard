@@ -4,6 +4,7 @@ import type { ColumnType } from 'antd/es/table/interface';
 // import { useState } from 'react';
 import HeaderTitle from '../../../components/shared/HeaderTitle';
 import type { WaitingListTypes } from '../../../types/types';
+import { useState } from 'react';
 
 const { Option } = Select;
 
@@ -123,6 +124,7 @@ export const orderData: WaitingListTypes[] = [
 ];
 
 export default function WaitingList({ dashboard }: { dashboard?: boolean }) {
+    const [selectedCity, setSelectedCity] = useState(null);
     // const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
     // const [selectedUser, setSelectedUser] = useState<User | null>(null);
     // const [isBlockModalVisible, setIsBlockModalVisible] = useState<boolean>(false);
@@ -253,12 +255,46 @@ export default function WaitingList({ dashboard }: { dashboard?: boolean }) {
                             },
                         }}
                     >
-                        <Input
-                            placeholder="Search"
-                            className=""
-                            style={{ width: 280, height: 40 }}
-                            prefix={<i className="bi bi-search"></i>}
-                        />
+                        <div className="flex justify-end gap-4 mb-4">
+                            <Select
+                                placeholder="City"
+                                style={{ width: 120, height: 40 }}
+                                allowClear
+                                showSearch
+                                onChange={(value) => setSelectedCity(value)}
+                                filterOption={(input, option) =>
+                                    (String(option?.children) ?? '').toLowerCase().includes(input.toLowerCase())
+                                }
+                            >
+                                {canadianCities?.map((city) => (
+                                    <Select.Option key={city} value={city}>
+                                        {city}
+                                    </Select.Option>
+                                ))}
+                            </Select>
+                            <Select
+                                placeholder="Region"
+                                style={{ width: 120, height: 40 }}
+                                allowClear
+                                showSearch
+                                onChange={(value) => setSelectedCity(value)}
+                                filterOption={(input, option) =>
+                                    (String(option?.children) ?? '').toLowerCase().includes(input.toLowerCase())
+                                }
+                            >
+                                {canadianCities?.map((city) => (
+                                    <Select.Option key={city} value={city}>
+                                        {city}
+                                    </Select.Option>
+                                ))}
+                            </Select>
+                            <Input
+                                placeholder="Search"
+                                className=""
+                                style={{ width: 280, height: 40 }}
+                                prefix={<i className="bi bi-search"></i>}
+                            />
+                        </div>
                     </ConfigProvider>
                 </div>
                 <ConfigProvider

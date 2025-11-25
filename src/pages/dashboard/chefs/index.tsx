@@ -130,6 +130,7 @@ const statusColorMap = {
 };
 
 export default function Chefs({ dashboard }: { dashboard?: boolean }) {
+    const [selectedCity, setSelectedCity] = useState(null);
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
     const [selectedUser, setSelectedUser] = useState<ChefsTypes | null>(null);
     const [isBlockModalVisible, setIsBlockModalVisible] = useState<boolean>(false);
@@ -361,11 +362,52 @@ export default function Chefs({ dashboard }: { dashboard?: boolean }) {
                         <div className="rounded-lg shadow-sm border border-gray-200 p-4">
                             <div className="flex items-center justify-between mb-4">
                                 <HeaderTitle title="Users" />
-                                <Input
-                                    placeholder="Search"
-                                    style={{ width: 280, height: 40 }}
-                                    prefix={<i className="bi bi-search"></i>}
-                                />
+                                <ConfigProvider theme={{ token: { colorPrimary: '#59A817' } }}>
+                                    <div className="flex justify-end gap-4 mb-4">
+                                        <Select
+                                            placeholder="City"
+                                            style={{ width: 120, height: 40 }}
+                                            allowClear
+                                            showSearch
+                                            onChange={(value) => setSelectedCity(value)}
+                                            filterOption={(input, option) =>
+                                                (String(option?.children) ?? '')
+                                                    .toLowerCase()
+                                                    .includes(input.toLowerCase())
+                                            }
+                                        >
+                                            {canadianCities?.map((city) => (
+                                                <Select.Option key={city} value={city}>
+                                                    {city}
+                                                </Select.Option>
+                                            ))}
+                                        </Select>
+                                        <Select
+                                            placeholder="Region"
+                                            style={{ width: 120, height: 40 }}
+                                            allowClear
+                                            showSearch
+                                            onChange={(value) => setSelectedCity(value)}
+                                            filterOption={(input, option) =>
+                                                (String(option?.children) ?? '')
+                                                    .toLowerCase()
+                                                    .includes(input.toLowerCase())
+                                            }
+                                        >
+                                            {canadianCities?.map((city) => (
+                                                <Select.Option key={city} value={city}>
+                                                    {city}
+                                                </Select.Option>
+                                            ))}
+                                        </Select>
+                                        <Input
+                                            placeholder="Search"
+                                            className=""
+                                            style={{ width: 280, height: 40 }}
+                                            prefix={<i className="bi bi-search"></i>}
+                                        />
+                                    </div>
+                                </ConfigProvider>
                             </div>
                             <ConfigProvider theme={{ token: { colorPrimary: '#59A817' } }}>
                                 <Table
@@ -393,11 +435,9 @@ export default function Chefs({ dashboard }: { dashboard?: boolean }) {
                             <ConfigProvider theme={{ token: { colorPrimary: '#59A817' } }}>
                                 <Table
                                     columns={columns}
-                                    dataSource={
-                                        chefData
-                                            .sort((a, b) => (b.totalOrder ?? 0) - (a.totalOrder ?? 0))
-                                            .slice(0, 5)
-                                    }
+                                    dataSource={chefData
+                                        .sort((a, b) => (b.totalOrder ?? 0) - (a.totalOrder ?? 0))
+                                        .slice(0, 5)}
                                     pagination={false}
                                 />
                             </ConfigProvider>

@@ -1,4 +1,4 @@
-import { Button, ConfigProvider, Rate, Select, Table } from 'antd';
+import { Button, ConfigProvider, Input, Rate, Select, Table } from 'antd';
 import type { ColumnType } from 'antd/es/table/interface';
 import HeaderTitle from '../../../components/shared/HeaderTitle';
 import { ReviewTypes } from '../../../types/types';
@@ -272,6 +272,7 @@ const statusColorMap = {
 };
 
 export default function Reviews({ dashboard }: { dashboard?: boolean }) {
+    const [selectedCity, setSelectedCity] = useState(null);
     const [selectedReview, setSelectedReview] = useState<ReviewTypes | null>(null);
     const [showModal, setShowModal] = useState(false);
 
@@ -441,6 +442,48 @@ export default function Reviews({ dashboard }: { dashboard?: boolean }) {
             <div className="rounded-lg shadow-sm border border-gray-200 p-4">
                 <div className="flex items-center justify-between mb-4">
                     <HeaderTitle title="Reviews" />
+                    <ConfigProvider theme={{ token: { colorPrimary: '#59A817' } }}>
+                        <div className="flex justify-end gap-4 mb-4">
+                            <Select
+                                placeholder="City"
+                                style={{ width: 120, height: 40 }}
+                                allowClear
+                                showSearch
+                                onChange={(value) => setSelectedCity(value)}
+                                filterOption={(input, option) =>
+                                    (String(option?.children) ?? '').toLowerCase().includes(input.toLowerCase())
+                                }
+                            >
+                                {canadianCities?.map((city) => (
+                                    <Select.Option key={city} value={city}>
+                                        {city}
+                                    </Select.Option>
+                                ))}
+                            </Select>
+                            <Select
+                                placeholder="Region"
+                                style={{ width: 120, height: 40 }}
+                                allowClear
+                                showSearch
+                                onChange={(value) => setSelectedCity(value)}
+                                filterOption={(input, option) =>
+                                    (String(option?.children) ?? '').toLowerCase().includes(input.toLowerCase())
+                                }
+                            >
+                                {canadianCities?.map((city) => (
+                                    <Select.Option key={city} value={city}>
+                                        {city}
+                                    </Select.Option>
+                                ))}
+                            </Select>
+                            <Input
+                                placeholder="Search"
+                                className=""
+                                style={{ width: 280, height: 40 }}
+                                prefix={<i className="bi bi-search"></i>}
+                            />
+                        </div>
+                    </ConfigProvider>
                 </div>
                 <ConfigProvider
                     theme={{

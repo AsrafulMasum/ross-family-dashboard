@@ -62,6 +62,7 @@ const statusColorMap = {
 };
 
 export default function Category({ dashboard }: { dashboard?: boolean }) {
+    const [selectedCity, setSelectedCity] = useState(null);
     const [activeTab, setActiveTab] = useState<'category' | 'subcategory'>('category');
 
     const [categoryList, setCategoryList] = useState<CategoryTypes[]>(categoryData);
@@ -126,49 +127,6 @@ export default function Category({ dashboard }: { dashboard?: boolean }) {
             key: 'totalDishes',
             responsive: ['sm'] as any,
         },
-        // {
-        //   title: 'City',
-        //   dataIndex: 'city',
-        //   key: 'city',
-        //   responsive: ['lg'] as any,
-        //   filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
-        //     <div style={{ padding: 8 }}>
-        //       <Select
-        //         placeholder="Select a Canadian city"
-        //         value={selectedKeys?.[0] ?? undefined}
-        //         style={{ width: 200 }}
-        //         onChange={(value) => {
-        //           setSelectedKeys?.(value ? [value] : []);
-        //           confirm?.();
-        //         }}
-        //         allowClear
-        //         showSearch
-        //         filterOption={(input, option) =>
-        //           (option?.children as unknown as string).toLowerCase().includes(input.toLowerCase())
-        //         }
-        //       >
-        //         {canadianCities?.map((city) => (
-        //           <Option key={city} value={city}>
-        //             {city}
-        //           </Option>
-        //         ))}
-        //       </Select>
-        //       <div style={{ marginTop: 8 }}>
-        //         <a
-        //           onClick={() => {
-        //             clearFilters?.();
-        //             confirm?.();
-        //           }}
-        //           style={{ width: 90, marginRight: 8 }}
-        //         >
-        //           Reset
-        //         </a>
-        //       </div>
-        //     </div>
-        //   ),
-        //   onFilter: (value: string | number | boolean, record: CategoryTypes) => record.city === value,
-        //   render: (city: string) => city,
-        // },
         {
             title: 'City',
             dataIndex: 'city',
@@ -263,12 +221,48 @@ export default function Category({ dashboard }: { dashboard?: boolean }) {
         <div className="rounded-lg shadow-sm border border-gray-200 p-4">
             <div className="flex items-center justify-between mb-4">
                 <HeaderTitle title={activeTab === 'category' ? 'Categories' : 'Sub-Categories'} />
-                <button
-                    className="bg-primary h-10 px-4 rounded-md text-white text-sm font-semibold"
-                    onClick={() => setIsAddEditModalOpen(true)}
-                >
-                    Add {activeTab === 'category' ? 'Category' : 'Sub-Category'}
-                </button>
+                <ConfigProvider theme={{ token: { colorPrimary: '#59A817' } }}>
+                    <div className="flex justify-end gap-4 mb-4">
+                        <Select
+                            placeholder="City"
+                            style={{ width: 120, height: 40 }}
+                            allowClear
+                            showSearch
+                            onChange={(value) => setSelectedCity(value)}
+                            filterOption={(input, option) =>
+                                (String(option?.children) ?? '').toLowerCase().includes(input.toLowerCase())
+                            }
+                        >
+                            {canadianCities?.map((city) => (
+                                <Select.Option key={city} value={city}>
+                                    {city}
+                                </Select.Option>
+                            ))}
+                        </Select>
+                        <Select
+                            placeholder="Region"
+                            style={{ width: 120, height: 40 }}
+                            allowClear
+                            showSearch
+                            onChange={(value) => setSelectedCity(value)}
+                            filterOption={(input, option) =>
+                                (String(option?.children) ?? '').toLowerCase().includes(input.toLowerCase())
+                            }
+                        >
+                            {canadianCities?.map((city) => (
+                                <Select.Option key={city} value={city}>
+                                    {city}
+                                </Select.Option>
+                            ))}
+                        </Select>
+                        <button
+                            className="bg-primary h-10 px-4 rounded-md text-white text-sm font-semibold"
+                            onClick={() => setIsAddEditModalOpen(true)}
+                        >
+                            Add {activeTab === 'category' ? 'Category' : 'Sub-Category'}
+                        </button>
+                    </div>
+                </ConfigProvider>
             </div>
 
             <ConfigProvider

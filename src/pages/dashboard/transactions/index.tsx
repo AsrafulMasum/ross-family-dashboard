@@ -417,6 +417,7 @@ const driverTransactions: TransactionTypes[] = [
 ];
 
 export default function Transactions({ dashboard }: { dashboard?: boolean }) {
+    const [selectedCity, setSelectedCity] = useState(null);
     const [activeTab, setActiveTab] = useState<'chef' | 'customer' | 'driver'>('chef');
     const [selectedTransaction, setSelectedTransaction] = useState<TransactionTypes | null>(null);
     const [open, setOpen] = useState(false);
@@ -544,12 +545,48 @@ export default function Transactions({ dashboard }: { dashboard?: boolean }) {
                             : 'Driver Transactions'
                     }
                 />
+
                 <ConfigProvider theme={{ token: { colorPrimary: '#59A817' } }}>
-                    <Input
-                        placeholder="Search"
-                        style={{ width: 280, height: 40 }}
-                        prefix={<i className="bi bi-search"></i>}
-                    />
+                    <div className="flex justify-end gap-4 mb-4">
+                        <Select
+                            placeholder="City"
+                            style={{ width: 120, height: 40 }}
+                            allowClear
+                            showSearch
+                            onChange={(value) => setSelectedCity(value)}
+                            filterOption={(input, option) =>
+                                (String(option?.children) ?? '').toLowerCase().includes(input.toLowerCase())
+                            }
+                        >
+                            {canadianCities?.map((city) => (
+                                <Select.Option key={city} value={city}>
+                                    {city}
+                                </Select.Option>
+                            ))}
+                        </Select>
+                        <Select
+                            placeholder="Region"
+                            style={{ width: 120, height: 40 }}
+                            allowClear
+                            showSearch
+                            onChange={(value) => setSelectedCity(value)}
+                            filterOption={(input, option) =>
+                                (String(option?.children) ?? '').toLowerCase().includes(input.toLowerCase())
+                            }
+                        >
+                            {canadianCities?.map((city) => (
+                                <Select.Option key={city} value={city}>
+                                    {city}
+                                </Select.Option>
+                            ))}
+                        </Select>
+                        <Input
+                            placeholder="Search"
+                            className=""
+                            style={{ width: 280, height: 40 }}
+                            prefix={<i className="bi bi-search"></i>}
+                        />
+                    </div>
                 </ConfigProvider>
             </div>
 

@@ -1,4 +1,4 @@
-import { Button, ConfigProvider, Input, Table } from 'antd';
+import { Button, ConfigProvider, Input, Select, Table } from 'antd';
 import type { ColumnType } from 'antd/es/table/interface';
 // import { User } from '../../../demo-data/users.data';
 // import { useState } from 'react';
@@ -8,39 +8,39 @@ import { CiCircleInfo } from 'react-icons/ci';
 import { useState } from 'react';
 import RefundDetailsModal from '../../../components/modals/RefundDetailsModal';
 
-// const { Option } = Select;
+const { Option } = Select;
 
-// const canadianCities = [
-//     'Toronto',
-//     'Vancouver',
-//     'Montreal',
-//     'Calgary',
-//     'Edmonton',
-//     'Ottawa',
-//     'Winnipeg',
-//     'Quebec City',
-//     'Hamilton',
-//     'Kitchener',
-//     'London',
-//     'Victoria',
-//     'Halifax',
-//     'Oshawa',
-//     'Windsor',
-//     'Saskatoon',
-//     'Regina',
-//     'St. Johns',
-//     'Barrie',
-//     'Kelowna',
-//     'Abbotsford',
-//     'Sherbrooke',
-//     'Guelph',
-//     'Kingston',
-//     'Forfield', // From your original data
-//     'Noperville', // From your original data
-//     'Orange', // From your original data
-//     'Toledo', // From your original data
-//     'Austin', // From your original data
-// ];
+const canadianCities = [
+    'Toronto',
+    'Vancouver',
+    'Montreal',
+    'Calgary',
+    'Edmonton',
+    'Ottawa',
+    'Winnipeg',
+    'Quebec City',
+    'Hamilton',
+    'Kitchener',
+    'London',
+    'Victoria',
+    'Halifax',
+    'Oshawa',
+    'Windsor',
+    'Saskatoon',
+    'Regina',
+    'St. Johns',
+    'Barrie',
+    'Kelowna',
+    'Abbotsford',
+    'Sherbrooke',
+    'Guelph',
+    'Kingston',
+    'Forfield', // From your original data
+    'Noperville', // From your original data
+    'Orange', // From your original data
+    'Toledo', // From your original data
+    'Austin', // From your original data
+];
 
 const refundData: RefundType[] = [
     {
@@ -312,6 +312,7 @@ const statusColorMap = {
 };
 
 export default function Refund({ dashboard }: { dashboard?: boolean }) {
+    const [selectedCity, setSelectedCity] = useState(null);
     const [selectedReview, setSelectedReview] = useState<RefundType | null>(null);
     const [showModal, setShowModal] = useState(false);
 
@@ -319,6 +320,7 @@ export default function Refund({ dashboard }: { dashboard?: boolean }) {
         setSelectedReview(record);
         setShowModal(true);
     };
+
     const columns: ColumnType<RefundType>[] = [
         {
             title: 'Order ID',
@@ -342,59 +344,59 @@ export default function Refund({ dashboard }: { dashboard?: boolean }) {
             key: 'refundType',
             responsive: ['md'] as any,
         },
-        // {
-        //     title: 'City',
-        //     dataIndex: 'city',
-        //     key: 'city',
-        //     responsive: ['lg'] as any,
-        //     filterDropdown: ({
-        //         setSelectedKeys,
-        //         selectedKeys,
-        //         confirm,
-        //         clearFilters,
-        //     }: {
-        //         setSelectedKeys?: (keys: React.Key[]) => void;
-        //         selectedKeys?: React.Key[];
-        //         confirm?: () => void;
-        //         clearFilters?: () => void;
-        //     }) => (
-        //         <div style={{ padding: 8 }}>
-        //             <Select
-        //                 placeholder="Select a Canadian city"
-        //                 value={selectedKeys?.[0] ?? undefined}
-        //                 style={{ width: 200 }}
-        //                 onChange={(value) => {
-        //                     setSelectedKeys?.(value ? [value] : []);
-        //                     confirm?.();
-        //                 }}
-        //                 allowClear
-        //                 showSearch
-        //                 filterOption={(input, option) =>
-        //                     (option?.children as unknown as string).toLowerCase().includes(input.toLowerCase())
-        //                 }
-        //             >
-        //                 {canadianCities?.map((city) => (
-        //                     <Option key={city} value={city}>
-        //                         {city}
-        //                     </Option>
-        //                 ))}
-        //             </Select>
-        //             <div style={{ marginTop: 8 }}>
-        //                 <a
-        //                     onClick={() => {
-        //                         clearFilters?.();
-        //                         confirm?.();
-        //                     }}
-        //                     style={{ width: 90, marginRight: 8 }}
-        //                 >
-        //                     Reset
-        //                 </a>
-        //             </div>
-        //         </div>
-        //     ),
-        //     onFilter: (value: boolean | React.Key, record: Order) => record.city === value,
-        //     render: (city: string) => city,
-        // },
+        {
+            title: 'City',
+            dataIndex: 'city',
+            key: 'city',
+            responsive: ['lg'] as any,
+            filterDropdown: ({
+                setSelectedKeys,
+                selectedKeys,
+                confirm,
+                clearFilters,
+            }: {
+                setSelectedKeys?: (keys: React.Key[]) => void;
+                selectedKeys?: React.Key[];
+                confirm?: () => void;
+                clearFilters?: () => void;
+            }) => (
+                <div style={{ padding: 8 }}>
+                    <Select
+                        placeholder="Select a Canadian city"
+                        value={selectedKeys?.[0] ?? undefined}
+                        style={{ width: 200 }}
+                        onChange={(value) => {
+                            setSelectedKeys?.(value ? [value] : []);
+                            confirm?.();
+                        }}
+                        allowClear
+                        showSearch
+                        filterOption={(input, option) =>
+                            (option?.children as unknown as string).toLowerCase().includes(input.toLowerCase())
+                        }
+                    >
+                        {canadianCities?.map((city) => (
+                            <Option key={city} value={city}>
+                                {city}
+                            </Option>
+                        ))}
+                    </Select>
+                    <div style={{ marginTop: 8 }}>
+                        <a
+                            onClick={() => {
+                                clearFilters?.();
+                                confirm?.();
+                            }}
+                            style={{ width: 90, marginRight: 8 }}
+                        >
+                            Reset
+                        </a>
+                    </div>
+                </div>
+            ),
+            onFilter: (value: boolean | React.Key, record: RefundType) => record.city === value,
+            render: (city: string) => city,
+        },
         {
             title: 'Paid Amount',
             dataIndex: 'paidAmount',
@@ -461,19 +463,47 @@ export default function Refund({ dashboard }: { dashboard?: boolean }) {
             <div className="rounded-lg shadow-sm border border-gray-200 p-4">
                 <div className="flex items-center justify-between mb-4">
                     <HeaderTitle title="Refund Requests" />
-                    <ConfigProvider
-                        theme={{
-                            token: {
-                                colorPrimary: '#59A817',
-                            },
-                        }}
-                    >
-                        <Input
-                            placeholder="Search"
-                            className=""
-                            style={{ width: 280, height: 40 }}
-                            prefix={<i className="bi bi-search"></i>}
-                        />
+                    <ConfigProvider theme={{ token: { colorPrimary: '#59A817' } }}>
+                        <div className="flex justify-end gap-4 mb-4">
+                            <Select
+                                placeholder="City"
+                                style={{ width: 120, height: 40 }}
+                                allowClear
+                                showSearch
+                                onChange={(value) => setSelectedCity(value)}
+                                filterOption={(input, option) =>
+                                    (String(option?.children) ?? '').toLowerCase().includes(input.toLowerCase())
+                                }
+                            >
+                                {canadianCities?.map((city) => (
+                                    <Select.Option key={city} value={city}>
+                                        {city}
+                                    </Select.Option>
+                                ))}
+                            </Select>
+                            <Select
+                                placeholder="Region"
+                                style={{ width: 120, height: 40 }}
+                                allowClear
+                                showSearch
+                                onChange={(value) => setSelectedCity(value)}
+                                filterOption={(input, option) =>
+                                    (String(option?.children) ?? '').toLowerCase().includes(input.toLowerCase())
+                                }
+                            >
+                                {canadianCities?.map((city) => (
+                                    <Select.Option key={city} value={city}>
+                                        {city}
+                                    </Select.Option>
+                                ))}
+                            </Select>
+                            <Input
+                                placeholder="Search"
+                                className=""
+                                style={{ width: 280, height: 40 }}
+                                prefix={<i className="bi bi-search"></i>}
+                            />
+                        </div>
                     </ConfigProvider>
                 </div>
                 <ConfigProvider
