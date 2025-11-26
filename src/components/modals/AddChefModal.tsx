@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 import { Modal, Form, Input, Select, ConfigProvider } from 'antd';
 import { HomeOutlined, MailOutlined } from '@ant-design/icons';
