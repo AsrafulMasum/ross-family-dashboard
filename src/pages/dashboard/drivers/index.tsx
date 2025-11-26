@@ -6,6 +6,7 @@ import { MdOutlineDeleteOutline } from 'react-icons/md';
 import UserModal from '../../../components/modals/UserModal';
 import BlockModal from '../users/BlockModal';
 import { DriverTypes } from '../../../types/types';
+import AddDriverModal from '../../../components/modals/AddDriverModal';
 
 const { Option } = Select;
 const { TabPane } = Tabs;
@@ -105,6 +106,7 @@ const statusColorMap = {
 };
 
 export default function Drivers({ dashboard }: { dashboard?: boolean }) {
+    const [isAddDriver, setIsAddDriver] = useState<boolean>(false);
     const [selectedCity, setSelectedCity] = useState(null);
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
     const [selectedUser, setSelectedUser] = useState<DriverTypes | null>(null);
@@ -432,6 +434,12 @@ export default function Drivers({ dashboard }: { dashboard?: boolean }) {
                                             style={{ width: 280, height: 40 }}
                                             prefix={<i className="bi bi-search"></i>}
                                         />
+                                        <button
+                                            className="bg-primary h-10 px-4 rounded-md text-white text-sm font-semibold"
+                                            onClick={() => setIsAddDriver(true)}
+                                        >
+                                            Add Driver
+                                        </button>
                                     </div>
                                 </ConfigProvider>
                             </div>
@@ -490,6 +498,8 @@ export default function Drivers({ dashboard }: { dashboard?: boolean }) {
                 handleBlockConfirm={handleBlockConfirm}
                 isUserBlocked={userToBlock?.status !== 'active'}
             />
+
+            <AddDriverModal open={isAddDriver} onClose={() => setIsAddDriver(false)} />
         </>
     );
 }

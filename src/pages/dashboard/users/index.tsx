@@ -6,6 +6,7 @@ import HeaderTitle from '../../../components/shared/HeaderTitle';
 import { CiCircleInfo, CiLock, CiUnlock } from 'react-icons/ci';
 import { MdOutlineDeleteOutline } from 'react-icons/md';
 import { User } from '../../../types/types';
+import AddCustomerModal from '../../../components/modals/AddCustomerModal';
 
 const { Option } = Select;
 
@@ -155,6 +156,7 @@ const userData: User[] = [
 ];
 
 export default function Users({ dashboard }: { dashboard?: boolean }) {
+    const [isAddCustomerModalVisible, setIsAddCustomerModalVisible] = useState<boolean>(false);
     const [selectedCity, setSelectedCity] = useState(null);
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
@@ -355,6 +357,12 @@ export default function Users({ dashboard }: { dashboard?: boolean }) {
                                 style={{ width: 280, height: 40 }}
                                 prefix={<i className="bi bi-search"></i>}
                             />
+                            <button
+                                className="bg-primary h-10 px-4 rounded-md text-white text-sm font-semibold"
+                                onClick={() => setIsAddCustomerModalVisible(true)}
+                            >
+                                Add Customer
+                            </button>
                         </div>
                     </ConfigProvider>
                 </div>
@@ -382,6 +390,8 @@ export default function Users({ dashboard }: { dashboard?: boolean }) {
                 handleBlockConfirm={handleBlockConfirm}
                 isUserBlocked={userToBlock?.status !== 'active'}
             />
+
+            <AddCustomerModal open={isAddCustomerModalVisible} onClose={() => setIsAddCustomerModalVisible(false)} />
         </>
     );
 }
