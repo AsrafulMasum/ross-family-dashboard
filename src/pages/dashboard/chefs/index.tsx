@@ -6,6 +6,7 @@ import { MdOutlineDeleteOutline } from 'react-icons/md';
 import BlockModal from '../users/BlockModal';
 import { ChefsTypes } from '../../../types/types';
 import ChefDetailsModal from '../../../components/modals/ChefDetailsModal';
+import AddChefModal from '../../../components/modals/AddChefModal';
 
 const { Option } = Select;
 const { TabPane } = Tabs;
@@ -130,6 +131,7 @@ const statusColorMap = {
 };
 
 export default function Chefs({ dashboard }: { dashboard?: boolean }) {
+    const [addChefModal, setAddChefModal] = useState(false);
     const [selectedCity, setSelectedCity] = useState(null);
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
     const [selectedUser, setSelectedUser] = useState<ChefsTypes | null>(null);
@@ -407,6 +409,12 @@ export default function Chefs({ dashboard }: { dashboard?: boolean }) {
                                             style={{ width: 280, height: 40 }}
                                             prefix={<i className="bi bi-search"></i>}
                                         />
+                                        <button
+                                            className="bg-primary h-10 px-4 rounded-md text-white text-sm font-semibold"
+                                            onClick={() => setAddChefModal(true)}
+                                        >
+                                            Add Chef
+                                        </button>
                                     </div>
                                 </ConfigProvider>
                             </div>
@@ -466,6 +474,8 @@ export default function Chefs({ dashboard }: { dashboard?: boolean }) {
             >
                 <iframe src={pdfUrl} width="100%" height="600px" style={{ border: 'none' }} />
             </Modal>
+
+            <AddChefModal open={addChefModal} onClose={() => setAddChefModal(false)} />
         </>
     );
 }
